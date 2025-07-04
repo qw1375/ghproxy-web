@@ -275,6 +275,9 @@ function updateProxyUrl() {
  */
 
 document.addEventListener("DOMContentLoaded", function () {
+  // 初始化主题模式
+  initTheme();
+
   // // 初始化代理选项
   // if (window.proxyChecker) {
   //   window.proxyChecker.init();

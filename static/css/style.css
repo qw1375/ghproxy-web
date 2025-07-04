@@ -1,0 +1,591 @@
+/* ==========================================================================
+   1. 基础样式
+========================================================================== */
+
+/* 字体定义 */
+@font-face {
+    font-family: 'HarmonyOS_Sans_SC';
+    src: url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'),
+         url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.woff') format('woff'),
+         url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* 基础样式设置 */
+body {
+    /* font-family: 'HarmonyOS_Sans_SC', system-ui, -apple-system, sans-serif; */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* 标题样式 */
+.section-title {
+    /* font-family: 'HarmonyOS_Sans_SC'; */
+    font-weight: bold;
+    color: #374151;
+    font-size: 14px;
+}
+
+.table-header {
+    /* font-family: 'HarmonyOS_Sans_SC'; */
+    font-weight: bold !important;
+    color: #374151;
+}
+
+/* 全局过渡动画 */
+* {
+    transition-property: color, background-color, border-color;
+    transition-duration: 200ms;
+}
+
+/* ==========================================================================
+   2. 布局组件
+========================================================================== */
+
+/* 容器布局 */
+.container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* 主区域样式 */
+.main-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.main-description {
+    margin-bottom: 1.5rem;
+}
+
+.main-content {
+    padding: 1.5rem;
+}
+
+/* ==========================================================================
+   3. 导航栏组件
+========================================================================== */
+
+/* ==========================================================================
+   4. 代码块组件
+========================================================================== */
+
+/* 代码块容器 */
+.code-block {
+    position: relative;
+    width: 100%;
+    background-color: #F9FAFB;
+    border-radius: 0.5rem;
+    overflow: visible !important;
+    margin-bottom: 3.5rem;
+}
+
+/* 代码内容区域 */
+.code-content {
+    width: 100%;
+    padding: 1rem;
+    background-color: #F9FAFB;
+    border-radius: 0.5rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 0.25;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* 代码内容文本居中 */
+.code-content > div {
+    text-align: center;
+}
+
+/* 代码块间距处理 */
+.space-y-4 > .code-block:not(:last-child) {
+    margin-bottom: 5rem !important;
+}
+
+.space-y-4 > .code-block:last-child {
+    margin-bottom: 3.5rem !important;
+}
+
+/* Webkit 滚动条样式 */
+.code-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.code-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.code-content::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 4px;
+}
+
+.code-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.7);
+}
+
+/* ==========================================================================
+   5. 复制按钮组件
+========================================================================== */
+
+/* 复制按钮容器 */
+.copy-buttons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -3rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: auto;
+    white-space: nowrap;
+    z-index: 999;
+}
+
+/* 复制按钮样式 */
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    background-color: #3B82F6;
+    border-radius: 0.375rem;
+    color: white;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    cursor: pointer;
+    height: 2.5rem;
+}
+
+.copy-btn:hover {
+    background-color: #2563EB;
+}
+
+/* 复制状态样式 */
+.copy-success {
+    background-color: #10B981 !important;
+    color: white !important;
+}
+
+.copy-error {
+    background-color: #EF4444 !important;
+    color: white !important;
+}
+
+/* ==========================================================================
+   6. 表单组件
+========================================================================== */
+
+/* 输入框组样式 */
+.group {
+    position: relative;
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+}
+
+.group::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    border-radius: 0.5rem;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 输入框焦点状态 */
+/* .group:focus-within::after {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.group:focus-within #proxy-selector,
+.group:focus-within #github-url {
+    border-color: #3B82F6;
+}
+
+.group:focus-within #proxy-selector {
+    border-right-color: transparent;
+}
+
+.group:focus-within #github-url {
+    border-left-color: transparent;
+} */
+
+
+/* 输入框和选择器统一高度 
+#proxy-selector,
+#github-url,
+#download-button {
+    height: 38px !important;
+}
+*/
+
+/* 移除输入框默认样式 */
+#github-url:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Z-index 层级管理 */
+#proxy-selector {
+    z-index: 2;
+}
+
+#github-url {
+    z-index: 1;
+}
+
+.group:focus-within #proxy-selector,
+.group:focus-within #github-url {
+    z-index: 3;
+}
+
+/* ==========================================================================
+   7. 表格组件
+========================================================================== */
+
+/* 表格列宽样式 */
+.mirror-name-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 延迟显示颜色 */
+.delay-good {
+    @apply text-green-500;
+}
+.delay-normal {
+    @apply text-yellow-500;
+}
+.delay-bad {
+    @apply text-red-500;
+}
+
+/* 状态图标动画 */
+.status-checking i {
+    @apply animate-spin text-blue-500;
+}
+.status-success i {
+    @apply text-green-500;
+}
+.status-failed i {
+    @apply text-red-500;
+}
+
+/* ==========================================================================
+   8. 选项卡组件
+========================================================================== */
+
+/* 选项卡按钮基础样式 */
+[data-tab] {
+    position: relative;
+    transition: color 0.2s ease-in-out;
+}
+
+/* 选项卡状态样式 */
+[data-tab].text-blue-500 {
+    color: rgb(59, 130, 246) !important;
+}
+
+[data-tab].text-gray-500 {
+    color: rgb(107, 114, 128);
+}
+
+[data-tab].text-gray-500:hover {
+    color: rgb(55, 65, 81);
+}
+
+/* 滑动指示器样式 */
+#tab-indicator {
+    z-index: 10;
+}
+
+/* ==========================================================================
+   9. 深色模式
+========================================================================== */
+/* 背景深色模式 */
+.dark .custom-dark-bg {
+    background-color: #121212;
+}
+/* 头尾深色模式 */
+.dark .custom-dark-hf {
+    background-color: #1e1e1e;
+}
+/* 内容深色模式 */
+.dark .custom-dark-content {
+    background-color: #1e1e1e;
+}
+/* 输入框深色模式 */
+.dark .custom-dark-input {
+    background-color: #272727;
+}
+/* 代码块深色模式 */
+.dark .code-block {
+    background-color: #2b2b2b;
+}
+.dark .code-content {
+    background-color: #2b2b2b;
+    color: #E5E7EB;
+}
+
+/* 复制按钮深色模式 */
+.dark .copy-btn {
+    background-color: #3B82F6;
+    color: white;
+}
+
+.dark .copy-btn:hover {
+    background-color: #2563EB;
+}
+
+/* 选项卡深色模式 */
+.dark [data-tab].text-blue-500 {
+    color: rgb(96, 165, 250) !important;
+}
+
+.dark [data-tab].text-gray-500 {
+    color: rgb(156, 163, 175);
+}
+
+.dark [data-tab].text-gray-500:hover {
+    color: rgb(209, 213, 219);
+}
+
+/* 移动端菜单深色模式 */
+.dark #mobile-menu {
+    background-color: rgb(31 41 55);
+    border: 1px solid rgb(55 65 81);
+}
+
+/* ==========================================================================
+   10. 响应式布局
+========================================================================== */
+
+@media (max-width: 640px) {
+    /* 代码块移动端适配 */
+    .code-block {
+        margin-bottom: 4.5rem !important;
+        position: relative;
+        padding: 0;
+    }
+    
+    .space-y-4 > .code-block:not(:last-child) {
+        margin-bottom: 5.5rem !important;
+    }
+
+    /* 复制按钮移动端样式 */
+    .copy-buttons {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3.5rem;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .copy-btn {
+        flex: 1;
+        height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    /* 导航栏移动端适配 */
+    nav {
+        padding-top: 0.75rem;
+    }
+
+    #proxy-selector {
+        width: 48px !important;
+        padding: 0 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    #proxy-selector .fas {
+        position: static !important;
+        margin-left: 0 !important;
+    }
+
+    #proxy-dropdown {
+        width: 300px !important;
+    }
+
+    /* 输入框区域移动端适配 */
+    .flex.items-center.space-x-2 {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    .relative.flex-1 {
+        width: 100% !important;
+    }
+
+    /* 下载按钮移动端样式 */
+    .flex.items-center:last-child {
+        width: 100% !important;
+    }
+
+    #download-button {
+        width: 100% !important;
+        justify-content: center !important;
+        height: 38px !important;
+        padding: 0.5rem 1rem !important;
+        margin: 0 !important;
+    }
+
+    /* 移动端菜单样式 */
+    .nav-content > div:last-child {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .flex.items-center.sm\:hidden {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .nav-content > div:first-child {
+        flex: 0 0 auto;
+    }
+}
+
+/* 为产品列表添加样式 */
+.footer-products {
+    display: none;
+}
+
+/* 为产品列表标题添加样式 */
+.footer-products .font-bold {
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .footer-products {
+        display: flex;
+        flex-direction: column;
+        align-items: start; /* 修改为靠左对齐 */
+        margin-top: 2rem;
+    }
+
+    .footer-products > div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start; /* 修改为靠左对齐 */
+        gap: 1rem;
+    }
+
+    /* 控制每行最多显示三个产品链接 */
+    .footer-products > div > a {
+        flex: 0 0 calc(33.333% - 1rem);
+    }
+}
+
+
+/* 添加自定义图标样式 */
+.icon-\[mdi--shang\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB0PSIxNzI2MDU3Mjg1MjcwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg1MzUiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PHBhdGggZD0iTTQwMC42NjQ4MjkgNDMwLjQ3NzMzMWgyMjMuNjgzNjN2MzQuMjA2MTI0SDQwMC42NjQ4Mjl6IiBmaWxsPSIjMDAwMDAwIiBwLWlkPSI4NTM2Ij48L3BhdGg+PHBhdGggZD0iTTUxMi4wMDM2MTIgMEMyMjkuMjMxNDIzIDAgMC4wMDA5MDMgMjI5LjIzMDUyIDAuMDAwOTAzIDUxMS45OTU0ODRjMCAyODIuNzczOTk1IDIyOS4yMzA1MiA1MTIuMDA0NTE2IDUxMi4wMDI3MDkgNTEyLjAwNDUxNiAyODIuNzYzMTU4IDAgNTExLjk5MzY3OC0yMjkuMjMwNTIgNTExLjk5MzY3OS01MTIuMDA0NTE2QzEwMjMuOTk5MDk3IDIyOS4yMzA1MiA3OTQuNzY4NTc3IDAgNTEyLjAwMzYxMiAweiBtLTI1LjIwMzk0MSA3MTguOTgyNDUxYy0yMC41ODAwMjggMTcuMTM5MTg2LTQ2LjMzODQ3OSAzMS45ODI2NzItNzcuMjg5ODAxIDQ0LjUxNjAwNi0zMC45NDIyOTEgMTIuNTQwNTYtNzYuOTI0OTQ1IDIyLjk1NzAwOS0xMzcuOTI0NDgxIDMxLjI0NTczNi00LjAwMDc2OS0xNy4yMTE0MzUtMTUuMjIyNzkxLTM3LjU5Mjc3OS0zMy42NTg4NDEtNjEuMTU0ODcxIDQ4LjE5NzA3NS0xLjk4ODY0NCA4Ni42NzEyODgtNi41NzEwMTUgMTE1LjQzNTI4My0xMy43NjUxNzQgMjguNzYyMTg4LTcuMTg2OTM1IDU0Ljg5NjMzMS0xOS4zOTY5NTcgNzguMzgyNTYxLTM2LjYzNTQ4NSAyMy40OTM0NTUtMTcuMjI3NjkxIDM3LjkxMDY3My00OC4yNDA0MjQgNDMuMjQ4MDQzLTkzLjAzMjc4MiAyMy42MjUzMDkgNi40NTcyMjMgNDcuMjQ4ODEyIDEyLjkxNDQ0NiA3MC44NzQxMiAxOS4zODA3MDEtMTguNzkzNjggNTUuODIxMTE0LTM4LjQ4ODY2MyA5Mi4yOTk0NTgtNTkuMDY2ODg0IDEwOS40NDU4Njl6TTMwOS4zMTU0NDEgNTMzLjU5NzgzMWg0MDYuMzg0MjEyYTk1My40MjU3MTEgOTUzLjQyNTcxMSAwIDAgMC0yLjQ3MjcxIDY5LjAyODE2OGMwIDIzLjYzOTc1OSAwLjgyMzYzNSA0Ny40NzQ1ODkgMi40NzI3MSA3MS40OTkwNzFoLTY0LjI4MTQzMXYtOTEuMDI3ODgySDM3My42MDIyOXYxMDAuODgyNTk4SDMwOS4zMTU0NDFjMS42NDkwNzUtMjguMzQ2NzU4IDIuNDcyNzEtNTMuODMwNjY0IDIuNDcyNzEtNzYuNDQ5OTEgMC0yMi41Njg2NzItMC44MjM2MzUtNDcuMjA3MjY5LTIuNDcyNzEtNzMuOTMyMDQ1eiBtMjcuMDYyNTM4LTE1Mi41NzY1MDdoMzUyLjI1OTEzNnYxMzAuNjg2OTcySDMzNi4zNzc5NzljMS42NDkwNzUtMjYuNjk1ODc3IDIuNDcyNzEtNDkuNzI1MTM0IDIuNDcyNzEtNjkuMDY5NzEgMC0xOS4yMTYzMzUtMC44MjM2MzUtMzkuNzYyMDQ1LTIuNDcyNzEtNjEuNjE3MjYyeiBtMzkzLjIwOTY3MSA0MTEuMjQ4MzUzYy0zNi4zNzcxOTYtMjYuNzc1MzUtOTcuNzAzNjU3LTU3LjU5NjYyNS0xODMuOTkzODMzLTkyLjQ1NDc5MyAxMy4zOTMwOTQtMTkuODkzNjY2IDI0LjU3ODk5MS0zNi43NTgzMDcgMzMuNTcyMTQxLTUwLjU5MjExOCA3Ny41MDQ3NCAzMC4zMDgzMDkgMTQxLjg4MTkwMSA2Mi41MzQ4MiAxOTMuMTMzMjg4IDk2LjY3NzcyNi0xNi4wNTcyNjMgMTQuNjI2NzM5LTMwLjI5MjA1MyAzMC4wNzcxMTMtNDIuNzExNTk2IDQ2LjM2OTE4NXogbTQ3LjY1NTIxLTM3NC4xMDg5MzRoLTY0LjI4Njg0OXYtNjMuOTc0Mzc1aC00MDAuODg5NzAzdjczLjgxODI1M0gyNDcuNzc3NjUyYzEuNjQ5MDc1LTI1LjAyMzMyIDIuNDYzNjc5LTQ2LjM5OTg5IDIuNDYzNjc5LTY0LjEyMDY3NyAwLTE5LjE0NzY5OS0wLjgxNDYwNC0zOC44NTg5MzctMi40NjM2NzktNTkuMTUxNzc3aDEyMy4wNzM3NzFjLTE5LjYwNjQ3OC0yMC41NzgyMjItMzguNDg1MDUtNDIuODE0NTUxLTU2LjYzMjEwNS02Ni43MTgwMTcgMTYuMDY2Mjk0LTEwLjYwNjEwMiAzMi4xMzk4MTItMjEuMjAzMTczIDQ4LjIwNDMtMzEuODA5Mjc1IDI0LjczNjEzMiAyNC43MzYxMzIgNDYuNTA0NjUgNTIuNzk3NTA4IDY1LjMwMzc0OSA4NC4xNzMyOTEtMTIuODk4MTkgOC44NzM5NDEtMjMuNjg2NzIgMTMuNjQ1OTY0LTMyLjM3MjgxNCAxNC4zNTU4MDdoODYuMjI2OTU5YzAtMjkuMTU0MTM3LTAuODA3Mzc5LTYxLjk3MTI4LTIuNDMxMTY3LTk4LjQ0OTYyNGg2Ni43MTgwMTZjLTEuNjIxOTgyIDMxLjkzMjA5OC0yLjQyOTM2MSA2NC43NDc0MzUtMi40MjkzNiA5OC40NDk2MjRoNTkuMTA2NjIxYzI2LjAzNjYwOC0zOC4yODQ1NiA0Mi4xODk2LTY5LjQ3OTcyMiA0OC40MzkxMDgtOTMuNTg5MDk2IDI1LjQ2NDAzNyAxMS44NDg3NzkgNDkuNDk3NTUxIDIxLjI0ODMyOCA3Mi4wODk3MDQgMjguMjA3Njc5LTE3Ljc1NjkxMiAxNi4wMzAxNjktMzcuNDQyODYzIDM3LjgyMzk3NS01OS4wNzA0OTcgNjUuMzgxNDE3aDExMy4yMzcxMTdjLTEuNjQ3MjY5IDE5LjQ3NjQzLTIuNDcwOTA0IDM3LjU2MjA3NC0yLjQ3MDkwNCA1NC4yNDYwOTMgMC4wMDE4MDYgMTUuNDE5NjY4IDAuODI1NDQxIDM1LjE0ODk2OSAyLjQ3MjcxIDU5LjE4MDY3N3oiIGZpbGw9IiMwMDAwMDAiIHAtaWQ9Ijg1MzciPjwvcGF0aD48L3N2Zz4=")
+}
+
+.icon-\[mdi--email\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2'/%3E%3C/svg%3E")
+}
+
+.icon-\[mdi--blogger\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath d='M12.5 10H10c-.55 0-1-.45-1-1s.45-1 1-1h2.5c.55 0 1 .45 1 1s-.45 1-1 1m2.5 4c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1m7-10v16c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V4c0-1.11.89-2 2-2h16c1.11 0 2 .89 2 2m-4 8s0-1-1-1c-.95.03-1-1-1-1V8c0-1.66-1.34-3-3-3H9C7.34 5 6 6.34 6 8v7c0 1.66 1.34 3 3 3h6c1.66 0 3-1.34 3-3v-3z' fill='black'/%3E%3C/svg%3E")
+}
+
+.icon-\[mdi--github\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2'/%3E%3C/svg%3E")
+}
+
+.icon-\[mdi--telegram\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath d='M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z' fill='black'/%3E%3C/svg%3E")
+}
+
+.icon-\[mdi--twitter\] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23'/%3E%3C/svg%3E")
+}

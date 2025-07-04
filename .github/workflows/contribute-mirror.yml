@@ -1,0 +1,79 @@
+name: Validate and Add Mirror
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  validate-and-add-mirror:
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.issue.labels.*.name, 'contribute-mirror') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract issue body
+        id: extract-body
+        run: |
+          # 使用 sed 提取 URL，处理标题和 URL 之间的空行
+          echo "BODY=$(echo '${{ github.event.issue.body }}' | awk '/### Link\(s\)/ { getline; getline; print }' | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;s/\/$//')" >> $GITHUB_ENV
+          echo "Extracted URL: $BODY"  # 打印提取的 URL，方便调试
+
+      - name: Validate URL
+        id: validate-url
+        run: |
+          if [[ -z "$BODY" ]]; then
+            echo "No URL provided in the issue body."
+            exit 1
+          fi
+          # 添加调试信息，打印 BODY 和 curl 的返回值
+          echo "Testing URL: $BODY"
+          if ! curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"  --output /dev/null --silent --fail "$BODY"; then
+            echo "Curl failed with exit code: $?"
+            echo "URL is not valid or inaccessible."
+            exit 1
+          fi
+          echo "URL is valid."
+
+      - name: Check HTTP status code
+        id: check-status
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$BODY")
+          if [ "$STATUS" != "200" ]; then
+            echo "HTTP status code is not 200. Got: $STATUS"
+            exit 1
+          fi
+          echo "HTTP status code is 200."
+
+      - name: Add mirror to mirrors.js
+        id: add-mirror
+        run: |
+          echo "Adding mirror to mirrors.js..."
+          # 创建临时文件
+          TMP_FILE=mirrors.tmp
+
+          # 获取最后一个镜像行的缩进
+          INDENT=$(grep -B1 '"[^"]*"' static/js/mirrors.js | head -1 | sed 's/[^ ].*//')
+          INDENT=${INDENT:-"  "} # 默认两个空格
+
+          # 使用 sed 精准匹配包含 '];' 的那一行，并在其前面插入新 URL
+          sed "/^[[:space:]]*];/i\
+          ${INDENT}\"$BODY\",
+          " static/js/mirrors.js > "${TMP_FILE}"
+
+          # 替换原文件
+          mv $TMP_FILE static/js/mirrors.js
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add static/js/mirrors.js
+          git commit -m "Add new mirror: $BODY"
+          git push origin HEAD:$GITHUB_REF
+
+      - name: Close issue
+        uses: peter-evans/close-issue@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: |
+            Thank you for contributing a mirror! Your mirror has been successfully added to the list.
+            The issue will now be closed.

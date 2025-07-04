@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub文件加速服务条款</title>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.31/vue.global.min.js"></script>
+    <link
+      rel="icon"
+      href="https://cdn.akams.cn/images/OcticonOctoface16.svg"
+      type="image/x-icon"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                light: "#2188ff",
+                dark: "#58a6ff",
+              },
+              secondary: {
+                light: "#58a6ff",
+                dark: "#79c0ff",
+              },
+              success: {
+                light: "#2ea44f",
+                dark: "#3fb950",
+              },
+            },
+            animation: {
+              "fade-in": "fadeIn 0.6s ease-out forwards",
+              "fade-in-up":
+                "fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: 0 },
+                "100%": { opacity: 1 },
+              },
+              fadeInUp: {
+                "0%": { opacity: 0, transform: "translateY(30px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, Arial, sans-serif;
+        @apply bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200;
+      }
+
+      .toc::before {
+        content: "";
+        @apply absolute top-0 left-0 w-1 h-full bg-primary-light dark:bg-primary-dark;
+      }
+
+      .toc-list a::after {
+        content: "→";
+        @apply absolute right-4 opacity-0 transition-all duration-300;
+      }
+
+      .toc-list a:hover::after {
+        @apply opacity-100 right-3;
+      }
+
+      .policy-section:hover {
+        @apply bg-blue-50/50 dark:bg-blue-900/10;
+      }
+
+      .scroll-top {
+        @apply transition-all duration-400 ease-in-out;
+      }
+
+      .gradient-border {
+        position: relative;
+        border-radius: 0.5rem;
+      }
+
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 0.5rem;
+        border: 1px solid transparent;
+        background: linear-gradient(45deg, #2188ff, #2ea44f) border-box;
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+        z-index: -1;
+      }
+
+      .dark .gradient-border::before {
+        background: linear-gradient(45deg, #58a6ff, #3fb950) border-box;
+      }
+
+      .section-highlight {
+        @apply relative;
+      }
+
+      .section-highlight::before {
+        content: "";
+        @apply absolute bottom-0 left-0 w-16 h-1 bg-primary-light dark:bg-primary-dark rounded-full;
+      }
+
+      .highlight-box {
+        @apply border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-r-lg;
+      }
+
+      #bash-command {
+  margin-top: 8px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  word-break: break-all;
+  white-space: pre-wrap;
+  /* 其他可以自定义... */
+}
+
+
+      /* 包裹按钮和命令的容器 */
+      .command-container {
+        position: relative;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300"
+  >
+    <div id="app">
+      <!-- 顶部导航栏 -->
+      <header
+        class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 shadow-sm py-4 transition-colors duration-300"
+      >
+        <div class="container mx-auto px-4 md:px-6">
+          <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <a
+              href="https://github.akams.cn"
+              class="flex items-center gap-3 text-xl font-bold"
+            >
+              <img
+                src="https://cdn.akams.cn/images/OcticonOctoface16.svg"
+                alt="AKAMS.CN"
+                class="h-10 w-10 object-contain dark:invert"
+              />
+              <span
+                v-if="lang === 'zh'"
+                class="text-2xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+                :class="{ 'animate-fade-in-up': animated }"
+                >GitHub文件加速服务</span
+              >
+              <span
+                v-else
+                class="text-2xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+                :class="{ 'animate-fade-in-up': animated }"
+                >GitHub File Accelerator</span
+              >
+            </a>
+
+            <div class="flex items-center gap-3">
+              <button
+                @click="toggleTheme"
+                class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                :aria-label="lang === 'zh' ? (theme === 'light' ? '切换到深色模式' : '切换到浅色模式') : (theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode')"
+              >
+                <i
+                  :class="theme === 'light' ? 'fa-solid fa-moon text-blue-500' : 'fa-solid fa-sun text-yellow-400'"
+                ></i>
+                <span v-if="lang === 'zh'"
+                  >{{ theme === 'light' ? '深色模式' : '浅色模式' }}</span
+                >
+                <span v-else
+                  >{{ theme === 'light' ? 'Dark Mode' : 'Light Mode' }}</span
+                >
+              </button>
+
+              <button
+                @click="toggleLang"
+                class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                :aria-label="lang === 'zh' ? '切换语言为英文' : 'Switch language to Chinese'"
+              >
+                <i class="fa-solid fa-language text-blue-500"></i>
+                <span v-if="lang === 'zh'">English</span>
+                <span v-else>中文</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 标题部分 -->
+        <div class="text-center mb-12 mt-6">
+          <h1
+            class="text-3xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <span v-if="lang === 'zh'">服务条款</span>
+            <span v-else>Terms of Service</span>
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <span v-if="lang === 'zh'">最后更新日期：2025年6月21日</span>
+            <span v-else>Last Updated: June 21, 2025</span>
+          </p>
+        </div>
+
+        <!-- 目录部分 -->
+        <div
+          class="gradient-border bg-white dark:bg-gray-800 rounded-xl p-6 mb-10 animate-fade-in-up"
+          :class="{ 'animate-fade-in-up': animated }"
+        >
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center"
+            >
+              <i class="fa-solid fa-list text-blue-500"></i>
+            </div>
+            <h2 class="text-xl font-bold">
+              <span v-if="lang === 'zh'">目录</span>
+              <span v-else>Table of Contents</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div v-for="(item, index) in tocItems" :key="index" class="group">
+              <a
+                :href="'#' + item.id"
+                @click.prevent="scrollToSection(item.id)"
+                class="block p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300 group-hover:translate-x-1"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                  >
+                    <i
+                      class="fa-solid fa-chevron-right text-blue-500 text-xs"
+                    ></i>
+                  </div>
+                  <div>
+                    <span
+                      class="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-500 transition-colors"
+                    >
+                      <span v-if="lang === 'zh'">{{ item.titleZh }}</span>
+                      <span v-else>{{ item.titleEn }}</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 服务条款内容部分 -->
+        <div class="space-y-10">
+          <!-- 简介部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-file-lines text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="introduction"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">1. 简介</span>
+                  <span v-else>1. Introduction</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div class="highlight-box">
+                    <p>
+                      <span v-if="lang === 'zh'">
+                        欢迎使用GitHub文件加速服务（以下简称"本服务"）。本服务提供GitHub文件的加速下载和查看功能，无需用户注册或登录即可使用。注意：本站点不隶属于Github，Github是Github,
+                        Inc的注册商标。
+                      </span>
+                      <span v-else>
+                        Welcome to GitHub File Accelerator (hereinafter referred
+                        to as "the Service"). The Service provides accelerated
+                        downloading and viewing of GitHub files without
+                        requiring user registration or login.Attention: This
+                        site is not affiliated with GitHub. GitHub is a
+                        registered trademark of GitHub, Inc.
+                      </span>
+                    </p>
+                  </div>
+
+                  <p>
+                    <span v-if="lang === 'zh'">
+                      使用本服务即表示您同意遵守以下服务条款。如果您不同意这些条款，请勿使用本服务。
+                    </span>
+                    <span v-else>
+                      By using the Service, you agree to be bound by these Terms
+                      of Service. If you do not agree to these terms, please do
+                      not use the Service.
+                    </span>
+                  </p>
+
+                  <p>
+                    <span v-if="lang === 'zh'">
+                      我们可能会不定期更新服务条款，更新后的条款将在本页面发布。继续使用本服务即表示您接受更新后的条款。
+                    </span>
+                    <span v-else>
+                      We may update these Terms of Service from time to time.
+                      The updated terms will be posted on this page. Your
+                      continued use of the Service constitutes acceptance of the
+                      updated terms.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 服务描述部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-bolt text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="service-description"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">2. 服务描述</span>
+                  <span v-else>2. Service Description</span>
+                </h2>
+
+                <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                  <div class="highlight-box">
+                    <p>
+                      <span v-if="lang === 'zh'">
+                        本服务旨在为GitHub用户提供更快速、更稳定的文件访问体验，包括但不限于代码文件、文档、图片等资源的下载，克隆和查看。
+                      </span>
+                      <span v-else>
+                        The Service aims to provide GitHub users with a faster
+                        and more stable file access experience, including but
+                        not limited to downloading and viewing code files,
+                        documents, images, cloning and other resources.
+                      </span>
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3
+                      class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200"
+                    >
+                      <span v-if="lang === 'zh'">主要功能</span>
+                      <span v-else>Key Features</span>
+                    </h3>
+                    <ul class="mt-3 space-y-2">
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">GitHub文件加速下载</span>
+                        <span v-else>Accelerated GitHub file downloads</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">GitHub代码文件在线查看</span>
+                        <span v-else>Online viewing of GitHub code files</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'"
+                          >支持多种文件格式（代码、文档、图片等）</span
+                        >
+                        <span v-else
+                          >Support for multiple file formats (code, documents,
+                          images, etc.)</span
+                        >
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">无需注册或登录即可使用</span>
+                        <span v-else>No registration or login required</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3
+                      class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200"
+                    >
+                      <span v-if="lang === 'zh'">服务限制</span>
+                      <span v-else>Service Limitations</span>
+                    </h3>
+                    <ul class="mt-3 space-y-2">
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-info text-blue-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'"
+                          >文件大小限制（部分站点）</span
+                        >
+                        <span v-else>File size limit (some sites).</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-info text-blue-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <div class="command-container">
+                          <span v-if="lang === 'zh'"
+                            >支持私有仓库文件访问，但是繁琐且第三方代理站有可能泄露您的Github
+                            Token（仍然使用？）
+
+                            <button
+                              @click="showAnswer = !showAnswer"
+                              class="flex items-center gap-2 px-4 py-2 bg-blue-300 dark:bg-blue-800 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition-colors"
+                              :aria-label="showAnswer ? '隐藏使用方法' : '显示使用方法'"
+                              :title="showAnswer ? '隐藏使用方法' : '显示使用方法'"
+                              :aria-expanded="showAnswer"
+                            >
+                              {{ showAnswer ? "隐藏" : "显示" }}使用方法
+                            </button></span
+                          >
+                          <span v-else
+                            >Supports access to private repository files, but
+                            it's cumbersome, and third-party proxy sites may
+                            leak your GitHub Token.(Still in use?)<button
+                              @click="showAnswer = !showAnswer"
+                              class="flex items-center gap-2 px-4 py-2 bg-blue-300 dark:bg-blue-800 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition-colors"
+                              :aria-label="showAnswer ? 'Hide usage method' : 'Show usage method'"
+                              :title="showAnswer ? 'Hide usage method' : 'Show usage method'"
+                              :aria-expanded="showAnswer"
+                            >
+                              {{ showAnswer ? "Hide" : "Show" }} usage method
+                            </button></span
+                          >
+                          <div
+                            v-if="showAnswer"
+                            class="w-full mt-4 bg-gray-900 rounded-lg text-gray-300 font-mono text-sm p-4 overflow-x-auto shadow-md animate-fade-in-up"
+                            :class="{ 'animate-fade-in-up': animated }"
+                            id="bash-command"
+                            role="region"
+                            :aria-live="showAnswer ? 'polite' : 'off'"
+                          >
+                            <div class="flex items-start">
+                              <span class="text-green-400 mr-2">$</span>
+                              <div class="flex-1 overflow-x-auto">
+                                <span class="text-blue-400">git clone</span>
+                                <span class="text-gray-400"> </span>
+                                <span class="text-purple-400"></span>
+                                  https://user:TOKEN@gh.llkk.cc/https://github.com/xxxx/xxxx</span
+                                >
+                              </div>
+                            </div>
+                            <div
+                              v-if="lang === 'zh'"
+                              class="mt-2 text-xs text-gray-500"
+                            >
+                              注意：请将TOKEN，用户名及私人仓库链接替换为您实际的GitHub个人访问令牌、用户名和私人仓库链接。
+                            </div>
+                            <div v-else class="mt-2 text-xs text-gray-500">
+                              Note: Please replace TOKEN, username, and private
+                              repository link with your actual GitHub personal
+                              access token, username, and private repository link.
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 用户责任部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-user-shield text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="user-responsibilities"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">3. 用户责任</span>
+                  <span v-else>3. User Responsibilities</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">使用本服务时，您同意：</p>
+                  <p v-else>When using the Service, you agree to:</p>
+                  <ul class="mt-3 space-y-3">
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-ban text-red-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >不将本服务用于任何非法目的</span
+                      >
+                      <span v-else
+                        >Not use the Service for any illegal purposes</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-ban text-red-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >不尝试干扰或破坏服务的正常运行</span
+                      >
+                      <span v-else
+                        >Not attempt to disrupt or interfere with the normal
+                        operation of the Service</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-ban text-red-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'">不尝试规避服务限制</span>
+                      <span v-else
+                        >Not attempt to circumvent service limitations</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-ban text-red-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >不尝试访问未授权的内容或资源</span
+                      >
+                      <span v-else
+                        >Not attempt to access unauthorized content or
+                        resources</span
+                      >
+                    </li>
+                  </ul>
+
+                  <div
+                    class="p-5 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-700 mt-6"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div class="text-red-500 text-2xl">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                      </div>
+                      <div>
+                        <p v-if="lang === 'zh'" class="font-medium">
+                          禁止使用本服务下载或分发恶意软件、侵权内容或任何非法材料。违反此规定可能导致您的访问被立即终止。
+                        </p>
+                        <p v-else class="font-medium">
+                          Prohibited uses include downloading or distributing
+                          malware, infringing content, or any illegal materials.
+                          Violation may result in immediate termination of
+                          access.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 知识产权部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-copyright text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="intellectual-property"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">4. 知识产权</span>
+                  <span v-else>4. Intellectual Property</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i class="fa-solid fa-file text-blue-500"></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">用户内容</span>
+                          <span v-else>User Content</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >通过本服务访问的所有GitHub文件均由其原始作者保留所有权利</span
+                        >
+                        <span v-else
+                          >All GitHub files accessed through the Service retain
+                          their original copyrights</span
+                        >
+                      </p>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i class="fa-solid fa-code text-blue-500"></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">服务知识产权</span>
+                          <span v-else>Service IP</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >本服务的所有代码、设计和内容归服务提供者所有</span
+                        >
+                        <span v-else
+                          >All code, design, and content of the Service belong
+                          to the service provider</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-box mt-6">
+                    <p>
+                      <span v-if="lang === 'zh'">
+                        本服务仅提供GitHub文件的加速访问，不声明对通过本服务访问的任何内容拥有所有权。用户应遵守GitHub的服务条款和所有适用的版权法律。
+                      </span>
+                      <span v-else>
+                        The Service only provides accelerated access to GitHub
+                        files and does not claim ownership of any content
+                        accessed through the Service. Users should comply with
+                        GitHub's Terms of Service and all applicable copyright
+                        laws.
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 免责声明部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-triangle-exclamation text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="disclaimer"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">5. 免责声明</span>
+                  <span v-else>5. Disclaimer</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div
+                    class="p-5 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-700"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div class="text-yellow-500 text-2xl">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                      </div>
+                      <div>
+                        <p v-if="lang === 'zh'" class="font-medium">
+                          本服务按"原样"提供，不作任何明示或暗示的保证。服务提供者不对服务的可用性、准确性或可靠性作任何保证。
+                        </p>
+                        <p v-else class="font-medium">
+                          The Service is provided "as is" without any
+                          warranties, express or implied. The service provider
+                          makes no warranties regarding the availability,
+                          accuracy, or reliability of the Service.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ul class="mt-4 space-y-3">
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-yellow-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-1 text-yellow-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >服务提供者不保证本服务无中断或无错误</span
+                      >
+                      <span v-else
+                        >The service provider does not warrant that the Service
+                        will be uninterrupted or error-free</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-yellow-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-2 text-yellow-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >服务提供者不保证通过本服务访问的内容准确性或完整性</span
+                      >
+                      <span v-else
+                        >The service provider does not warrant the accuracy or
+                        completeness of content accessed through the
+                        Service</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-yellow-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-3 text-yellow-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >服务提供者不承担因使用本服务导致的任何直接或间接损失</span
+                      >
+                      <span v-else
+                        >The service provider is not liable for any direct or
+                        indirect damages resulting from use of the Service</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 责任限制部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-scale-balanced text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="limitation-of-liability"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">6. 责任限制</span>
+                  <span v-else>6. Limitation of Liability</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div
+                    class="p-5 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-700"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div class="text-red-500 text-2xl">
+                        <i class="fa-solid fa-scale-unbalanced"></i>
+                      </div>
+                      <div>
+                        <p v-if="lang === 'zh'" class="font-medium">
+                          在任何情况下，服务提供者均不对因使用或无法使用本服务导致的任何直接、间接、附带、特殊或后果性损害承担责任。
+                        </p>
+                        <p v-else class="font-medium">
+                          In no event shall the service provider be liable for
+                          any direct, indirect, incidental, special, or
+                          consequential damages arising from the use or
+                          inability to use the Service.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p>
+                    <span v-if="lang === 'zh'">
+                      此责任限制适用于所有索赔，无论是基于合同、侵权、严格责任还是其他法律理论，即使服务提供者已被告知发生此类损害的可能性。
+                    </span>
+                    <span v-else>
+                      This limitation of liability applies to all claims,
+                      whether based on contract, tort, strict liability, or
+                      other legal theories, even if the service provider has
+                      been advised of the possibility of such damages.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 终止部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-power-off text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="termination"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">7. 终止</span>
+                  <span v-else>7. Termination</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i class="fa-solid fa-user text-blue-500"></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">用户终止</span>
+                          <span v-else>User Termination</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >您可以随时停止使用本服务</span
+                        >
+                        <span v-else
+                          >You may stop using the Service at any time</span
+                        >
+                      </p>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i class="fa-solid fa-server text-blue-500"></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">服务终止</span>
+                          <span v-else>Service Termination</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >服务提供者可随时修改、暂停或终止本服务</span
+                        >
+                        <span v-else
+                          >The service provider may modify, suspend, or
+                          terminate the Service at any time</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-box mt-4">
+                    <p>
+                      <span v-if="lang === 'zh'">
+                        服务提供者保留在不事先通知的情况下，随时终止或暂停您访问本服务的权利，特别是如果您违反本服务条款的任何规定。
+                      </span>
+                      <span v-else>
+                        The service provider reserves the right to terminate or
+                        suspend your access to the Service at any time without
+                        prior notice, especially if you violate any provision of
+                        these Terms of Service.
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 联系我们部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-envelope text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="contact"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">8. 联系我们</span>
+                  <span v-else>8. Contact Us</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">
+                    如对本服务条款有任何疑问，请通过以下方式联系我们：
+                  </p>
+                  <p v-else>
+                    If you have any questions about these Terms of Service,
+                    please contact us via:
+                  </p>
+
+                  <div
+                    class="mt-6 p-5 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-xl border border-gray-200 dark:border-gray-700"
+                  >
+                    <div class="flex flex-col md:flex-row gap-5 items-center">
+                      <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-2">
+                          <span v-if="lang === 'zh'">电子邮件</span>
+                          <span v-else>Email</span>
+                        </h3>
+                        <a
+                          href="mailto:oopsunix@qq.com"
+                          class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium flex items-center gap-2"
+                        >
+                          <i class="fa-solid fa-envelope"></i>
+                          oopsunix@qq.com
+                        </a>
+                      </div>
+
+                      <div
+                        class="md:w-px md:h-16 bg-gray-200 dark:bg-gray-700"
+                      ></div>
+
+                      <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-2">
+                          <span v-if="lang === 'zh'">最后更新</span>
+                          <span v-else>Last Updated</span>
+                        </h3>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium">
+                          <span v-if="lang === 'zh'">2025年6月21日</span>
+                          <span v-else>June 21, 2025</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer
+        class="mt-16 py-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-gray-600 dark:text-gray-400 mb-2">
+            <span v-if="lang === 'zh'"
+              >© 2025
+              <a
+                href="https://github.akams.cn"
+                class="text-blue-500 hover:underline"
+                >GitHub文件加速服务</a
+              >
+              | 服务条款</span
+            >
+            <span v-else
+              >© 2025
+              <a
+                href="https://github.akams.cn"
+                class="text-blue-500 hover:underline"
+                >GitHub File Accelerator</a
+              >
+              | Terms of Service</span
+            >
+          </p>
+          <p class="text-gray-500 dark:text-gray-500 text-sm">
+            <span v-if="lang === 'zh'"
+              >致力于提供安全、快速的GitHub文件加速访问体验</span
+            >
+            <span v-else
+              >Committed to providing safe and fast GitHub file access</span
+            >
+          </p>
+        </div>
+      </footer>
+
+      <!-- 返回顶部按钮 -->
+      <button
+        @click="scrollToTop"
+        class="scroll-top fixed bottom-8 right-8 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-300"
+        :class="{ 'opacity-0 translate-y-5': !showScrollTop, 'opacity-100': showScrollTop }"
+        :aria-label="lang === 'zh' ? '返回顶部' : 'Back to top'"
+        :title="lang === 'zh' ? '返回顶部' : 'Back to top'"
+      >
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
+
+    <script>
+      const { createApp, ref, onMounted } = Vue;
+
+      createApp({
+        setup() {
+          const theme = ref("light");
+          const lang = ref("zh");
+          const showScrollTop = ref(false);
+          const animated = ref(false);
+          const tocItems = ref([
+            { id: "introduction", titleZh: "简介", titleEn: "Introduction" },
+            {
+              id: "service-description",
+              titleZh: "服务描述",
+              titleEn: "Service Description",
+            },
+            {
+              id: "user-responsibilities",
+              titleZh: "用户责任",
+              titleEn: "User Responsibilities",
+            },
+            {
+              id: "intellectual-property",
+              titleZh: "知识产权",
+              titleEn: "Intellectual Property",
+            },
+            { id: "disclaimer", titleZh: "免责声明", titleEn: "Disclaimer" },
+            {
+              id: "limitation-of-liability",
+              titleZh: "责任限制",
+              titleEn: "Limitation of Liability",
+            },
+            { id: "termination", titleZh: "终止", titleEn: "Termination" },
+            { id: "contact", titleZh: "联系我们", titleEn: "Contact Us" },
+          ]);
+          // 显示答案的状态
+          const showAnswer = ref(false);
+
+          // 切换主题
+          const toggleTheme = () => {
+            theme.value = theme.value === "light" ? "dark" : "light";
+            document.documentElement.classList.toggle(
+              "dark",
+              theme.value === "dark"
+            );
+            localStorage.setItem("theme", theme.value);
+          };
+
+          // 切换语言
+          const toggleLang = () => {
+            lang.value = lang.value === "zh" ? "en" : "zh";
+            localStorage.setItem("lang", lang.value);
+          };
+
+          // 滚动到顶部
+          const scrollToTop = () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          };
+
+          // 滚动到指定区域
+          const scrollToSection = (id) => {
+            const element = document.getElementById(id);
+            if (element) {
+              const headerHeight =
+                document.querySelector("header").offsetHeight;
+              const topPos =
+                element.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerHeight -
+                20;
+
+              window.scrollTo({
+                top: topPos,
+                behavior: "smooth",
+              });
+            }
+          };
+
+          // 处理滚动事件
+          const handleScroll = () => {
+            showScrollTop.value = window.scrollY > 300;
+
+            if (!animated.value && window.scrollY > 100) {
+              animated.value = true;
+            }
+          };
+
+          // 初始化
+          onMounted(() => {
+            // 检测系统主题
+            const systemPrefersDark =
+              window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+            // 从localStorage获取用户偏好或使用系统设置
+            const savedTheme = localStorage.getItem("theme");
+            const savedLang = localStorage.getItem("lang");
+
+            theme.value = savedTheme || (systemPrefersDark ? "dark" : "light");
+            lang.value = savedLang || "zh";
+
+            if (theme.value === "dark") {
+              document.documentElement.classList.add("dark");
+            }
+
+            // 添加滚动监听
+            window.addEventListener("scroll", handleScroll);
+            handleScroll();
+
+            // 在页面加载后触发动画
+            setTimeout(() => {
+              animated.value = true;
+            }, 300);
+          });
+
+          return {
+            theme,
+            lang,
+            tocItems,
+            showScrollTop,
+            animated,
+            toggleTheme,
+            toggleLang,
+            scrollToTop,
+            scrollToSection,
+            showAnswer, // 修复：暴露 showAnswer 以实现按钮切换立即生效
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

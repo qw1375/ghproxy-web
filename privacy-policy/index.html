@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub文件加速服务隐私政策</title>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.31/vue.global.min.js"></script>
+    <link rel="icon" href="https://cdn.akams.cn/images/OcticonOctoface16.svg" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                light: "#2188ff",
+                dark: "#58a6ff",
+              },
+              secondary: {
+                light: "#58a6ff",
+                dark: "#79c0ff",
+              },
+              success: {
+                light: "#2ea44f",
+                dark: "#3fb950",
+              },
+            },
+            animation: {
+              "fade-in": "fadeIn 0.6s ease-out forwards",
+              "fade-in-up":
+                "fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: 0 },
+                "100%": { opacity: 1 },
+              },
+              fadeInUp: {
+                "0%": { opacity: 0, transform: "translateY(30px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, Arial, sans-serif;
+        @apply bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200;
+      }
+
+      .toc::before {
+        content: "";
+        @apply absolute top-0 left-0 w-1 h-full bg-primary-light dark:bg-primary-dark;
+      }
+
+      .toc-list a::after {
+        content: "→";
+        @apply absolute right-4 opacity-0 transition-all duration-300;
+      }
+
+      .toc-list a:hover::after {
+        @apply opacity-100 right-3;
+      }
+
+      .policy-section:hover {
+        @apply bg-blue-50/50 dark:bg-blue-900/10;
+      }
+
+      .scroll-top {
+        @apply transition-all duration-400 ease-in-out;
+      }
+
+      .gradient-border {
+        position: relative;
+        border-radius: 0.5rem;
+      }
+
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 0.5rem;
+        border: 1px solid transparent;
+        background: linear-gradient(45deg, #2188ff, #2ea44f) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+        z-index: -1;
+      }
+
+      .dark .gradient-border::before {
+        background: linear-gradient(45deg, #58a6ff, #3fb950) border-box;
+      }
+
+      .section-highlight {
+        @apply relative;
+      }
+
+      .section-highlight::before {
+        content: "";
+        @apply absolute bottom-0 left-0 w-16 h-1 bg-primary-light dark:bg-primary-dark rounded-full;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300"
+  >
+    <div id="app">
+      <!-- 顶部导航栏 -->
+      <header
+        class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 shadow-sm py-4 transition-colors duration-300"
+      >
+        <div class="container mx-auto px-4 md:px-6">
+          <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <a
+              href="https://github.akams.cn"
+              class="flex items-center gap-3 text-xl font-bold"
+            >
+              <img
+                src="https://cdn.akams.cn/images/OcticonOctoface16.svg"
+                alt="AKAMS.CN"
+                class="h-10 w-10 object-contain dark:invert"
+              />
+
+              <span
+                v-if="lang === 'zh'"
+                class="text-2xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+                :class="{ 'animate-fade-in-up': animated }"
+                >GitHub文件加速服务</span
+              >
+              <span
+                v-else
+                class="text-2xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+                :class="{ 'animate-fade-in-up': animated }"
+                >GitHub File Accelerator</span
+              >
+            </a>
+
+            <div class="flex items-center gap-3">
+              <button
+                @click="toggleTheme"
+                class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              >
+                <i
+                  :class="theme === 'light' ? 'fa-solid fa-moon text-blue-500' : 'fa-solid fa-sun text-yellow-400'"
+                ></i>
+                <span v-if="lang === 'zh'"
+                  >{{ theme === 'light' ? '深色模式' : '浅色模式' }}</span
+                >
+                <span v-else
+                  >{{ theme === 'light' ? 'Dark Mode' : 'Light Mode' }}</span
+                >
+              </button>
+
+              <button
+                @click="toggleLang"
+                class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              >
+                <i class="fa-solid fa-language text-blue-500"></i>
+                <span v-if="lang === 'zh'">English</span>
+                <span v-else>中文</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 标题部分 -->
+        <div class="text-center mb-12 mt-6">
+          <h1
+            class="text-3xl md:text-4xl font-bold mb-4 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <span v-if="lang === 'zh'">隐私政策</span>
+            <span v-else>Privacy Policy</span>
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <span v-if="lang === 'zh'">最后更新日期：2025年6月21日</span>
+            <span v-else>Last Updated: June 21, 2025</span>
+          </p>
+        </div>
+
+        <!-- 目录部分 -->
+        <div
+          class="gradient-border bg-white dark:bg-gray-800 rounded-xl p-6 mb-10 animate-fade-in-up"
+          :class="{ 'animate-fade-in-up': animated }"
+        >
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center"
+            >
+              <i class="fa-solid fa-list text-blue-500"></i>
+            </div>
+            <h2 class="text-xl font-bold">
+              <span v-if="lang === 'zh'">目录</span>
+              <span v-else>Table of Contents</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div v-for="(item, index) in tocItems" :key="index" class="group">
+              <a
+                :href="'#' + item.id"
+                @click.prevent="scrollToSection(item.id)"
+                class="block p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300 group-hover:translate-x-1"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                  >
+                    <i
+                      class="fa-solid fa-chevron-right text-blue-500 text-xs"
+                    ></i>
+                  </div>
+                  <div>
+                    <span
+                      class="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-500 transition-colors"
+                    >
+                      <span v-if="lang === 'zh'">{{ item.titleZh }}</span>
+                      <span v-else>{{ item.titleEn }}</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 政策内容部分 -->
+        <div class="space-y-10">
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-file-lines text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="introduction"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">1. 简介</span>
+                  <span v-else>1. Introduction</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p>
+                    <span
+                      v-if="lang === 'zh'"
+                      class="inline-block px-2 py-1 bg-red-500 text-white text-xs font-medium rounded mr-2"
+                      >重要</span
+                    >
+                    <span
+                      v-else
+                      class="inline-block px-2 py-1 bg-red-500 text-white text-xs font-medium rounded mr-2"
+                      >IMPORTANT
+                    </span>
+                    <span v-if="lang === 'zh'">
+                      本隐私政策描述了GitHub文件加速服务（以下简称"本服务"）如何处理您的信息。本服务提供GitHub文件的加速下载和查看功能，无需用户注册或登录即可使用。
+                    </span>
+                    <span v-else>
+                      This Privacy Policy describes how GitHub File Accelerator
+                      (hereinafter referred to as "the Service") handles your
+                      information. The Service provides accelerated downloading
+                      and viewing of GitHub files without requiring user
+                      registration or login.
+                    </span>
+                  </p>
+
+                  <p>
+                    <span v-if="lang === 'zh'">
+                      请注意，虽然本服务本身不要求登录，但我们使用了第三方评论系统
+                      <span
+                        class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded font-medium"
+                        >Waline</span
+                      >，该系统提供了登录和评论功能。当您使用评论功能时，Waline会收集相关信息。
+                    </span>
+                    <span v-else>
+                      Please note that while the Service itself does not require
+                      login, we use a third-party commenting system
+                      <span
+                        class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded font-medium"
+                        >Waline</span
+                      >
+                      which provides login and commenting functionality. When
+                      you use the commenting feature, Waline collects relevant
+                      information.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-database text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="data-collection"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">2. 收集的信息</span>
+                  <span v-else>2. Information Collected</span>
+                </h2>
+
+                <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                  <div>
+                    <h3
+                      class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200"
+                    >
+                      <span v-if="lang === 'zh'">服务使用信息</span>
+                      <span v-else>Service Usage Information</span>
+                    </h3>
+                    <p v-if="lang === 'zh'">
+                      当您使用本服务时，我们可能会收集匿名使用数据，包括：
+                    </p>
+                    <p v-else>
+                      When you use the Service, we may collect anonymous usage
+                      data, including:
+                    </p>
+                    <ul class="mt-3 space-y-2">
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">请求的GitHub文件URL</span>
+                        <span v-else>Requested GitHub file URL</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">访问日期和时间</span>
+                        <span v-else>Access date and time</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">浏览器类型和版本</span>
+                        <span v-else>Browser type and version</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'"
+                          >IP地址（仅用于地理位置分析，非个人身份信息）</span
+                        >
+                        <span v-else
+                          >IP address (for geographical analysis only, not
+                          personally identifiable)</span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3
+                      class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200"
+                    >
+                      <span v-if="lang === 'zh'">Waline评论系统</span>
+                      <span v-else>Waline Commenting System</span>
+                    </h3>
+                    <p v-if="lang === 'zh'">
+                      当您使用评论功能时，Waline可能会收集：
+                    </p>
+                    <p v-else>
+                      When you use the commenting feature, Waline may collect:
+                    </p>
+                    <ul class="mt-3 space-y-2">
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'"
+                          >您提供的用户名和电子邮件地址</span
+                        >
+                        <span v-else
+                          >Username and email address you provide</span
+                        >
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">您的评论内容</span>
+                        <span v-else>Your comment content</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'"
+                          >社交账号信息（如果您选择使用社交账号登录）</span
+                        >
+                        <span v-else
+                          >Social account information (if you choose to log in
+                          with a social account)</span
+                        >
+                      </li>
+                      <li class="flex items-start">
+                        <i
+                          class="fa-solid fa-circle-check text-green-500 mt-1 mr-2 text-xs"
+                        ></i>
+                        <span v-if="lang === 'zh'">浏览器和设备的详细信息</span>
+                        <span v-else>Browser and device details</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-gears text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="data-usage"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">3. 信息使用方式</span>
+                  <span v-else>3. How We Use Information</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">我们收集的信息用于：</p>
+                  <p v-else>The information we collect is used for:</p>
+                  <ul class="mt-3 space-y-3">
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-1 text-blue-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'">提供和维护本服务</span>
+                      <span v-else>Providing and maintaining the Service</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-2 text-blue-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'">分析使用情况以改进服务</span>
+                      <span v-else>Analyzing usage to improve the Service</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-3 text-blue-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'">防止滥用和恶意活动</span>
+                      <span v-else
+                        >Preventing abuse and malicious activities</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center mt-0.5 mr-3"
+                      >
+                        <i class="fa-solid fa-4 text-blue-500 text-xs"></i>
+                      </div>
+                      <span v-if="lang === 'zh'"
+                        >支持评论功能（通过Waline）</span
+                      >
+                      <span v-else
+                        >Supporting commenting functionality (via Waline)</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-share-nodes text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="data-sharing"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">4. 信息共享</span>
+                  <span v-else>4. Information Sharing</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">
+                    我们不会出售您的个人信息。在以下情况下，我们可能会共享信息：
+                  </p>
+                  <p v-else>
+                    We do not sell your personal information. We may share
+                    information in the following cases:
+                  </p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i
+                            class="fa-solid fa-scale-balanced text-blue-500"
+                          ></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">法律要求</span>
+                          <span v-else>Legal Requirements</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >当法律要求或法律程序需要时</span
+                        >
+                        <span v-else
+                          >When required by law or legal process</span
+                        >
+                      </p>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i
+                            class="fa-solid fa-shield-halved text-blue-500"
+                          ></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">保护权益</span>
+                          <span v-else>Protection of Rights</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'">保护本服务的权利和财产</span>
+                        <span v-else
+                          >To protect the rights and property of the
+                          Service</span
+                        >
+                      </p>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div class="flex items-center gap-3 mb-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center"
+                        >
+                          <i class="fa-solid fa-handshake text-blue-500"></i>
+                        </div>
+                        <h3
+                          class="font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          <span v-if="lang === 'zh'">服务提供商</span>
+                          <span v-else>Service Providers</span>
+                        </h3>
+                      </div>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >与第三方服务提供商（如waline，第三方节点提供者等）共享必要信息</span
+                        >
+                        <span v-else
+                          >With third-party service providers (such as waline,
+                          third-party node providers, etc.)</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cookies部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-cookie-bite text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="cookies"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">5. Cookies和追踪技术</span>
+                  <span v-else>5. Cookies and Tracking Technologies</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">
+                    本服务可能使用Cookies和类似技术来：
+                  </p>
+                  <p v-else>
+                    The Service may use cookies and similar technologies to:
+                  </p>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div
+                      class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center"
+                    >
+                      <div
+                        class="w-12 h-12 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-3"
+                      >
+                        <i class="fa-solid fa-gear text-blue-500 text-xl"></i>
+                      </div>
+                      <h3
+                        class="font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                      >
+                        <span v-if="lang === 'zh'">偏好设置</span>
+                        <span v-else>Preferences</span>
+                      </h3>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >记住您的偏好设置（如主题选择）</span
+                        >
+                        <span v-else
+                          >Remember your preferences (such as theme
+                          selection)</span
+                        >
+                      </p>
+                    </div>
+
+                    <div
+                      class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center"
+                    >
+                      <div
+                        class="w-12 h-12 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-3"
+                      >
+                        <i
+                          class="fa-solid fa-chart-simple text-blue-500 text-xl"
+                        ></i>
+                      </div>
+                      <h3
+                        class="font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                      >
+                        <span v-if="lang === 'zh'">使用分析</span>
+                        <span v-else>Usage Analysis</span>
+                      </h3>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'">分析服务使用情况</span>
+                        <span v-else>Analyze service usage</span>
+                      </p>
+                    </div>
+
+                    <div
+                      class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center"
+                    >
+                      <div
+                        class="w-12 h-12 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-3"
+                      >
+                        <i
+                          class="fa-solid fa-comments text-blue-500 text-xl"
+                        ></i>
+                      </div>
+                      <h3
+                        class="font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                      >
+                        <span v-if="lang === 'zh'">评论功能</span>
+                        <span v-else>Comment Functionality</span>
+                      </h3>
+                      <p class="text-sm">
+                        <span v-if="lang === 'zh'"
+                          >支持评论功能（Waline使用Cookies管理会话）</span
+                        >
+                        <span v-else
+                          >Support commenting functionality (Waline uses cookies
+                          to manage sessions)</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 安全部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-shield text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="security"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">6. 安全</span>
+                  <span v-else>6. Security</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div
+                    class="p-5 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-xl border border-gray-200 dark:border-gray-700 flex items-center gap-5"
+                  >
+                    <div class="text-blue-500 text-3xl">
+                      <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                      <p v-if="lang === 'zh'" class="font-medium">
+                        我们采取合理措施保护您的信息免遭未经授权的访问或披露。然而，请注意互联网传输并非100%安全。
+                      </p>
+                      <p v-else class="font-medium">
+                        We take reasonable measures to protect your information
+                        from unauthorized access or disclosure. However, please
+                        note that internet transmission is not 100% secure.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 政策变更部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-clock-rotate-left text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="changes"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">7. 政策变更</span>
+                  <span v-else>7. Policy Changes</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <div
+                    class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                  >
+                    <div class="text-blue-500 mt-1">
+                      <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <div>
+                      <p v-if="lang === 'zh'">
+                        我们可能会不定期更新本隐私政策。更新后的政策将在本页面发布，并更新"最后更新"日期。
+                      </p>
+                      <p v-else>
+                        We may update this Privacy Policy from time to time. The
+                        updated policy will be posted on this page with a
+                        revised "Last Updated" date.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                  >
+                    <div class="text-blue-500 mt-1">
+                      <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div>
+                      <p v-if="lang === 'zh'">
+                        建议您定期查看本页面以了解任何更改。继续使用本服务即表示您接受更新后的政策。
+                      </p>
+                      <p v-else>
+                        We encourage you to periodically review this page for
+                        any changes. Your continued use of the Service
+                        constitutes acceptance of the updated policy.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 联系部分 -->
+          <div
+            class="policy-section bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm transition-all duration-300 animate-fade-in-up"
+            :class="{ 'animate-fade-in-up': animated }"
+          >
+            <div class="flex items-start gap-4 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mt-1"
+              >
+                <i class="fa-solid fa-envelope text-blue-500"></i>
+              </div>
+              <div>
+                <h2
+                  id="contact"
+                  class="text-2xl font-bold mb-2 section-highlight"
+                >
+                  <span v-if="lang === 'zh'">8. 联系我们</span>
+                  <span v-else>8. Contact Us</span>
+                </h2>
+
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                  <p v-if="lang === 'zh'">
+                    如对本隐私政策有任何疑问，请通过以下方式联系我们：
+                  </p>
+                  <p v-else>
+                    If you have any questions about this Privacy Policy, please
+                    contact us via:
+                  </p>
+
+                  <div
+                    class="mt-6 p-5 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-xl border border-gray-200 dark:border-gray-700"
+                  >
+                    <div class="flex flex-col md:flex-row gap-5 items-center">
+                      <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-2">
+                          <span v-if="lang === 'zh'">电子邮件</span>
+                          <span v-else>Email</span>
+                        </h3>
+                        <a
+                          href="mailto:oopsunix@qq.com"
+                          class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium flex items-center gap-2"
+                        >
+                          <i class="fa-solid fa-envelope"></i>
+                          oopsunix@qq.com
+                        </a>
+                      </div>
+
+                      <div
+                        class="md:w-px md:h-16 bg-gray-200 dark:bg-gray-700"
+                      ></div>
+
+                      <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-2">
+                          <span v-if="lang === 'zh'">最后更新</span>
+                          <span v-else>Last Updated</span>
+                        </h3>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium">
+                          <span v-if="lang === 'zh'">2025年6月21日</span>
+                          <span v-else>June 21, 2025</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer
+        class="mt-16 py-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-gray-600 dark:text-gray-400 mb-2">
+            <span v-if="lang === 'zh'"
+              >© 2025
+              <a
+                href="https://github.akams.cn"
+                class="text-blue-500 hover:underline"
+                >GitHub文件加速服务</a
+              >
+              | 隐私政策</span
+            >
+            <span v-else
+              >© 2025
+              <a
+                href="https://github.akams.cn"
+                class="text-blue-500 hover:underline"
+                >GitHub File Accelerator</a
+              >
+              | Privacy Policy</span
+            >
+          </p>
+          <p class="text-gray-500 dark:text-gray-500 text-sm">
+            <span v-if="lang === 'zh'"
+              >致力于提供安全、快速的GitHub文件加速访问体验</span
+            >
+            <span v-else
+              >Committed to providing safe and fast GitHub file access</span
+            >
+          </p>
+        </div>
+      </footer>
+
+      <!-- 返回顶部按钮 -->
+      <button
+        @click="scrollToTop"
+        class="scroll-top fixed bottom-8 right-8 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-300"
+        :class="{ 'opacity-0 translate-y-5': !showScrollTop, 'opacity-100': showScrollTop }"
+      >
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
+
+    <script>
+      const { createApp, ref, onMounted } = Vue;
+
+      createApp({
+        setup() {
+          const theme = ref("light");
+          const lang = ref("zh");
+          const showScrollTop = ref(false);
+          const animated = ref(false);
+          const tocItems = ref([
+            { id: "introduction", titleZh: "简介", titleEn: "Introduction" },
+            {
+              id: "data-collection",
+              titleZh: "收集的信息",
+              titleEn: "Information Collected",
+            },
+            {
+              id: "data-usage",
+              titleZh: "信息使用方式",
+              titleEn: "How We Use Information",
+            },
+            {
+              id: "data-sharing",
+              titleZh: "信息共享",
+              titleEn: "Information Sharing",
+            },
+            {
+              id: "cookies",
+              titleZh: "Cookies和追踪技术",
+              titleEn: "Cookies and Tracking Technologies",
+            },
+            { id: "security", titleZh: "安全", titleEn: "Security" },
+            { id: "changes", titleZh: "政策变更", titleEn: "Policy Changes" },
+            { id: "contact", titleZh: "联系我们", titleEn: "Contact Us" },
+          ]);
+
+          // 切换主题
+          const toggleTheme = () => {
+            theme.value = theme.value === "light" ? "dark" : "light";
+            document.documentElement.classList.toggle(
+              "dark",
+              theme.value === "dark"
+            );
+            localStorage.setItem("theme", theme.value);
+          };
+
+          // 切换语言
+          const toggleLang = () => {
+            lang.value = lang.value === "zh" ? "en" : "zh";
+            localStorage.setItem("lang", lang.value);
+          };
+
+          // 滚动到顶部
+          const scrollToTop = () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          };
+
+          // 滚动到指定区域
+          const scrollToSection = (id) => {
+            const element = document.getElementById(id);
+            if (element) {
+              const headerHeight =
+                document.querySelector("header").offsetHeight;
+              const topPos =
+                element.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerHeight -
+                20;
+
+              window.scrollTo({
+                top: topPos,
+                behavior: "smooth",
+              });
+            }
+          };
+
+          // 处理滚动事件
+          const handleScroll = () => {
+            showScrollTop.value = window.scrollY > 300;
+
+            if (!animated.value && window.scrollY > 100) {
+              animated.value = true;
+            }
+          };
+
+          // 初始化
+          onMounted(() => {
+            // 检测系统主题
+            const systemPrefersDark =
+              window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+            // 从localStorage获取用户偏好或使用系统设置
+            const savedTheme = localStorage.getItem("theme");
+            const savedLang = localStorage.getItem("lang");
+
+            theme.value = savedTheme || (systemPrefersDark ? "dark" : "light");
+            lang.value = savedLang || "zh";
+
+            if (theme.value === "dark") {
+              document.documentElement.classList.add("dark");
+            }
+
+            // 添加滚动监听
+            window.addEventListener("scroll", handleScroll);
+            handleScroll();
+
+            // 在页面加载后触发动画
+            setTimeout(() => {
+              animated.value = true;
+            }, 300);
+          });
+
+          return {
+            theme,
+            lang,
+            tocItems,
+            showScrollTop,
+            animated,
+            toggleTheme,
+            toggleLang,
+            scrollToTop,
+            scrollToSection,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+name: 📦 Contribute Mirror
+description: Contribute a GitHub file to speed up downloading mirror sources.
+title: "[mirror]: "
+labels: ["contribute-mirror"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Prerequisites
+      options:
+        - label: 我是该镜像源的开发者，我清楚在公开贡献镜像源后，可能会因高频访问导致存在服务中断或账单风险。
+          required: true
+  - type: input
+    attributes:
+      label: Link(s)
+      description: URI(s) of the mirror sources.
+      placeholder: e.g., https://example.com/mirror
+    validations:
+      required: true

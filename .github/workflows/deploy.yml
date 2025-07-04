@@ -1,0 +1,55 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:  # 忽略 .github 目录下的文件更新
+      - '.github/**'
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up temporary build directory
+      run: |
+        mkdir -p ./build
+        rsync -av --exclude='.git/' --exclude='.github/' --exclude='.gitignore' --exclude='.gitattributes' ./ ./build/
+
+    # - name: Obfuscate JavaScript
+    #   uses: KevinRohn/github-action-javascript-obfuscator@v1
+    #   with:
+    #     input_path: './build/static/js/main.js'  # 源代码路径
+    #     output_path: './build/static/js/index.js'  # 输出路径
+    #     compact: true                     # 压缩代码输出在一行
+    #     control_flow_flattening: false    # 启用代码控制流展平
+    #     dead_code_injection: false
+    #     debug_protection: false           # 冻结浏览器开发人员调试
+    #     debug_protection_interval: 0
+    #     log: false                        # 允许将信息记录到控制台
+    #     disable_console_output: true      # 禁用控制台输出函数
+    #     rename_globals: false             # 启用属性名称的重命名
+    #     string_array_rotate: true
+    #     self_defending: true
+    #     string_array: true
+    #     string_array_encoding: 'none'
+    #     string_array_threshold: 0.75
+    #     unicode_escape_sequence: false    # 启用字符串转换为unicode转义序列
+    #     target: 'browser'                 # 为模糊代码设置目标环境
+
+    - name: Upload to WebDAV
+      uses: bxb100/action-upload@main
+      with:
+        provider: webdav
+        provider_options: |
+          endpoint=${{ secrets.WEBDAV_ENDPOINT }}
+          username=${{ secrets.WEBDAV_USERNAME }}
+          password=${{ secrets.WEBDAV_PASSWORD }}
+          root=${{ secrets.WEBDAV_ROOT }}
+        include: './build/**'

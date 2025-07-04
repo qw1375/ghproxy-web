@@ -38,4 +38,6 @@ window.mirrors = [
     "https://hub.gitmirror.com",
     "https://github.dpik.top",
     "https://gh.dpik.top",
+    "http://fast.qmwneb946.dpdns.org",
+    "https://gh-proxy.com"
 ];

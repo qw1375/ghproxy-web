@@ -1,5 +1,5 @@
 // 默认代理源
-let currentProxy = "github.akams.cn";
+window.currentProxy = "github.akams.cn";
 
 /**
  *
@@ -18,7 +18,7 @@ function generateProxyUrl(url) {
   if (!url) return "";
   // 移除可能存在的协议前缀
   url = url.replace(/^(https?:\/\/)/, "");
-  return `https://${currentProxy}/https://${url}`;
+  return `https://${window.currentProxy}/https://${url}`;
 }
 
 // 显示错误消息
@@ -123,7 +123,7 @@ function toggleProxyDropdown() {
 function selectProxy(name, url) {
   document.getElementById("selected-proxy").textContent = name;
   // 更新当前代理源，移除 https:// 前缀
-  currentProxy = new URL(url).hostname;
+  window.currentProxy = new URL(url).hostname;
   document.getElementById("proxy-dropdown").classList.add("hidden");
 
   // 如果输入框有值，重新生成链接

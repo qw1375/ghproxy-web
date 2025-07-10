@@ -144,7 +144,7 @@ body {
     gap: 0.5rem;
     width: auto;
     white-space: nowrap;
-    z-index: 999;
+    z-index: 10;
 }
 
 /* 复制按钮样式 */
@@ -416,6 +416,7 @@ body {
 
     #proxy-selector {
         width: 48px !important;
+        height: 38px !important;
         padding: 0 12px !important;
         display: flex !important;
         align-items: center !important;
@@ -427,8 +428,13 @@ body {
         margin-left: 0 !important;
     }
 
+    #github-url {
+        height: 38px !important;
+    }
+
     #proxy-dropdown {
-        width: 300px !important;
+        width: 350px !important;
+        z-index: 1000 !important;
     }
 
     /* 输入框区域移动端适配 */

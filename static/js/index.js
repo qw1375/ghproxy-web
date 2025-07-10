@@ -1,5 +1,5 @@
 // 默认代理源
-window.currentProxy = "github.akams.cn";
+let currentProxy = "gh.llkk.cc";
 
 /**
  *
@@ -18,7 +18,7 @@ function generateProxyUrl(url) {
   if (!url) return "";
   // 移除可能存在的协议前缀
   url = url.replace(/^(https?:\/\/)/, "");
-  return `https://${window.currentProxy}/https://${url}`;
+  return `https://${currentProxy}/https://${url}`;
 }
 
 // 显示错误消息
@@ -117,14 +117,24 @@ function handleDirectDownload() {
 function toggleProxyDropdown() {
   const dropdown = document.getElementById("proxy-dropdown");
   dropdown.classList.toggle("hidden");
+  
+  // 如果下拉菜单被打开，更新选中状态显示
+  if (!dropdown.classList.contains("hidden") && window.proxyChecker) {
+    window.proxyChecker.updateDropdownSelection();
+  }
 }
 
 // 动态更新选择的代理源到内容区域
 function selectProxy(name, url) {
   document.getElementById("selected-proxy").textContent = name;
   // 更新当前代理源，移除 https:// 前缀
-  window.currentProxy = new URL(url).hostname;
+  currentProxy = new URL(url).hostname;
   document.getElementById("proxy-dropdown").classList.add("hidden");
+
+  // 保存用户选择到缓存
+  if (window.proxyChecker) {
+    window.proxyChecker.setSelectedProxy(name, url);
+  }
 
   // 如果输入框有值，重新生成链接
   const urlInput = document.getElementById("github-url");

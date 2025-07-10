@@ -288,12 +288,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // 初始化主题模式
   initTheme();
 
-  // // 初始化代理选项
-  // if (window.proxyChecker) {
-  //   window.proxyChecker.init();
-  // } else {
-  //   console.error('ProxyChecker not initialized');
-  // }
+  // 初始化代理源选择 - 从缓存中恢复用户上次选择
+  if (window.proxyChecker) {
+    const selectedProxy = window.proxyChecker.getSelectedProxy();
+    if (selectedProxy) {
+      // 更新currentProxy变量为用户上次选择的代理源
+      currentProxy = new URL(selectedProxy.url).hostname;
+      // 更新显示的代理源名称
+      document.getElementById("selected-proxy").textContent = selectedProxy.hostname;
+    }
+  }
 
   // 初始化选项卡显示
   renderTabContent(currentTab);

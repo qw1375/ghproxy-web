@@ -1,5 +1,23 @@
 // 默认代理源
-let currentProxy = "gh.llkk.cc";
+let defaultProxy = "https://gh.llkk.cc";
+
+// URL 工具函数
+function extractHostname(url) {
+  try {
+    return new URL(url).hostname;
+  } catch (error) {
+    // 如果不是完整URL，假设它已经是hostname
+    return url.replace(/^https?:\/\//, '');
+  }
+}
+
+// 默认代理源的 hostname
+let defaultHostname = extractHostname(defaultProxy);
+
+// 将函数和变量添加到全局window对象
+window.extractHostname = extractHostname;
+window.defaultProxy = defaultProxy;
+window.defaultHostname = defaultHostname;
 
 /**
  *
@@ -18,7 +36,7 @@ function generateProxyUrl(url) {
   if (!url) return "";
   // 移除可能存在的协议前缀
   url = url.replace(/^(https?:\/\/)/, "");
-  return `https://${currentProxy}/https://${url}`;
+  return `https://${defaultHostname}/https://${url}`;
 }
 
 // 显示错误消息
@@ -127,8 +145,8 @@ function toggleProxyDropdown() {
 // 动态更新选择的代理源到内容区域
 function selectProxy(name, url) {
   document.getElementById("selected-proxy").textContent = name;
-  // 更新当前代理源，移除 https:// 前缀
-  currentProxy = new URL(url).hostname;
+  // 更新当前代理源，使用统一的URL处理函数
+  defaultHostname = extractHostname(url);
   document.getElementById("proxy-dropdown").classList.add("hidden");
 
   // 保存用户选择到缓存
@@ -292,8 +310,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.proxyChecker) {
     const selectedProxy = window.proxyChecker.getSelectedProxy();
     if (selectedProxy) {
-      // 更新currentProxy变量为用户上次选择的代理源
-      currentProxy = new URL(selectedProxy.url).hostname;
+      // 更新defaultHostname变量为用户上次选择的代理源
+      defaultHostname = extractHostname(selectedProxy.url);
       // 更新显示的代理源名称
       document.getElementById("selected-proxy").textContent = selectedProxy.hostname;
     }

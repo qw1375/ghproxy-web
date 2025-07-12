@@ -4,8 +4,12 @@ class ProxyChecker {
     this.cacheKey = 'proxyLatencyCache';
     this.selectedProxyCacheKey = 'selectedProxyCache';
     this.cacheExpiry = 30 * 60 * 1000; // 缓存延迟检测结果 30 分钟
-    this.defaultProxy = 'https://gh.llkk.cc'; // 默认代理源
     this.mirrorChecker = window.MirrorChecker ? new window.MirrorChecker() : null;
+  }
+
+  // 获取默认代理源
+  getDefaultProxy() {
+    return window.defaultProxy || "https://gh.llkk.cc";
   }
 
   // 从缓存中获取延迟检测结果
@@ -77,6 +81,22 @@ class ProxyChecker {
     });
   }
 
+  // 选择节点后立即更新下拉菜单 - Checker 类调用
+  updateDropdownAfterSelection(hostname, url) {
+    // 更新缓存的选择
+    this.setSelectedProxy(hostname, url);
+    
+    // 获取当前的延迟检测结果
+    const cachedResults = this.getCachedResults();
+    if (cachedResults) {
+      // 如果有缓存结果，立即更新下拉菜单
+      this.updateDropdownOptions(cachedResults);
+    } else {
+      // 如果没有缓存结果，重新生成初始下拉菜单
+      this.generateInitialDropdown();
+    }
+  }
+
   // 测试节点延迟
   async testNodeLatency(mirror) {
     try {
@@ -111,7 +131,7 @@ class ProxyChecker {
   updateDropdownOptions(sortedResults) {
     const dropdown = document.getElementById('proxy-dropdown');
     const selectedProxy = this.getSelectedProxy();
-    const currentSelectedUrl = selectedProxy ? selectedProxy.url : this.defaultProxy;
+    const currentSelectedUrl = selectedProxy ? selectedProxy.url : this.getDefaultProxy();
     
     // 确保当前选中的代理源在第一位
     const reorderedResults = [...sortedResults];
@@ -121,20 +141,20 @@ class ProxyChecker {
       const selectedResult = reorderedResults.splice(selectedIndex, 1)[0];
       reorderedResults.unshift(selectedResult);
     } else if (selectedIndex === -1) {
-      // 如果当前选中的代理源不在检测结果中，添加到第一位
-      const selectedHostname = new URL(currentSelectedUrl).hostname;
-      reorderedResults.unshift({
-        url: currentSelectedUrl,
-        latency: Infinity,
-        success: false,
-        error: '已选择'
-      });
-    }
+        // 如果当前选中的代理源不在检测结果中，添加到第一位
+        const selectedHostname = window.extractHostname ? window.extractHostname(currentSelectedUrl) : new URL(currentSelectedUrl).hostname;
+        reorderedResults.unshift({
+          url: currentSelectedUrl,
+          latency: Infinity,
+          success: false,
+          error: '已选择'
+        });
+      }
     
     dropdown.innerHTML = `
       <div class="py-1">
         ${reorderedResults.map((result, index) => {
-          const hostname = new URL(result.url).hostname;
+          const hostname = window.extractHostname ? window.extractHostname(result.url) : new URL(result.url).hostname;
           const latency = Math.round(result.latency);
           const isCurrentSelected = result.url === currentSelectedUrl;
           let backgroundColor = '#F2F3F5'; // 默认背景色
@@ -196,15 +216,16 @@ class ProxyChecker {
     
     if (selectedProxy) {
       // 使用用户之前选择的代理源
-      window.currentProxy = selectedProxy.hostname;
+      window.defaultHostname = window.extractHostname ? window.extractHostname(selectedProxy.url) : selectedProxy.hostname;
       document.getElementById('selected-proxy').textContent = selectedProxy.hostname;
     } else {
       // 使用默认代理源
-      const defaultHostname = new URL(this.defaultProxy).hostname;
-      window.currentProxy = defaultHostname;
+      const defaultProxy = this.getDefaultProxy();
+      const defaultHostname = window.extractHostname ? window.extractHostname(defaultProxy) : new URL(defaultProxy).hostname;
+      window.defaultHostname = defaultHostname;
       document.getElementById('selected-proxy').textContent = defaultHostname;
       // 保存默认选择
-      this.setSelectedProxy(defaultHostname, this.defaultProxy);
+      this.setSelectedProxy(defaultHostname, defaultProxy);
     }
 
     // 生成初始下拉菜单（显示检测中状态）
@@ -215,7 +236,7 @@ class ProxyChecker {
   generateInitialDropdown() {
     const dropdown = document.getElementById('proxy-dropdown');
     const selectedProxy = this.getSelectedProxy();
-    const selectedUrl = selectedProxy ? selectedProxy.url : this.defaultProxy;
+    const selectedUrl = selectedProxy ? selectedProxy.url : this.getDefaultProxy();
     
     // 将选中的代理源放在第一位
     const sortedMirrors = [...window.mirrors];
@@ -223,14 +244,14 @@ class ProxyChecker {
     if (selectedIndex > 0) {
       sortedMirrors.splice(selectedIndex, 1);
       sortedMirrors.unshift(selectedUrl);
-    } else if (selectedIndex === -1 && selectedUrl === this.defaultProxy) {
+    } else if (selectedIndex === -1 && selectedUrl === this.getDefaultProxy()) {
       sortedMirrors.unshift(selectedUrl);
     }
     
     dropdown.innerHTML = `
       <div class="py-1">
         ${sortedMirrors.map(url => {
-          const hostname = new URL(url).hostname;
+          const hostname = window.extractHostname ? window.extractHostname(url) : new URL(url).hostname;
           const isSelected = url === selectedUrl;
           
           return `
@@ -271,7 +292,7 @@ class ProxyChecker {
       results = await Promise.all(
         window.mirrors.map(mirror => this.testNodeLatency({
           value: mirror,
-          text: new URL(mirror).hostname
+          text: window.extractHostname ? window.extractHostname(mirror) : new URL(mirror).hostname
         }))
       );
 

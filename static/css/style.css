@@ -363,10 +363,10 @@ body {
 }
 
 /* 移动端菜单深色模式 */
-.dark #mobile-menu {
+/* .dark #mobile-menu {
     background-color: rgb(31 41 55);
     border: 1px solid rgb(55 65 81);
-}
+} */
 
 /* ==========================================================================
    10. 响应式布局
@@ -410,9 +410,9 @@ body {
     }
 
     /* 导航栏移动端适配 */
-    nav {
+    /* nav {
         padding-top: 0.75rem;
-    }
+    } */
 
     #proxy-selector {
         width: 48px !important;
@@ -449,9 +449,9 @@ body {
     }
 
     /* 下载按钮移动端样式 */
-    .flex.items-center:last-child {
+    /* .flex.items-center:last-child {
         width: 100% !important;
-    }
+    } */
 
     #download-button {
         width: 100% !important;
@@ -462,7 +462,7 @@ body {
     }
 
     /* 移动端菜单样式 */
-    .nav-content > div:last-child {
+    /* .nav-content > div:last-child {
         margin-left: auto;
         display: flex;
         align-items: center;
@@ -476,7 +476,7 @@ body {
 
     .nav-content > div:first-child {
         flex: 0 0 auto;
-    }
+    } */
 }
 
 /* 为产品列表添加样式 */
@@ -511,7 +511,7 @@ body {
 }
 
 
-/* 添加自定义图标样式 */
+/* 自定义图标样式 */
 .icon-\[mdi--shang\] {
     display: inline-block;
     width: 1em;

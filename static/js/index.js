@@ -19,6 +19,8 @@ window.extractHostname = extractHostname;
 window.defaultProxy = defaultProxy;
 window.defaultHostname = defaultHostname;
 
+
+
 /**
  *
  * 辅助函数

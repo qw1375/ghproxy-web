@@ -19,11 +19,23 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            fontFamily: {
-                'custom': ['Open Sans', 'sans-serif'],
-            },
             theme: {
-                extend: {}
+                extend: {
+                    colors: {
+                        'backdark': {
+                            '100': '#121212',
+                            '200': '#1E1E1E',
+                            '300': '#272727',
+                            '400': '#2E2E2E',
+                            '500': '#333333',
+                        }
+                    },
+                    fontFamily: {
+                        'custom': ['HarmonyOS Sans', 'Open Sans', 'sans-serif'],
+                        'lxgw': ['LXGW WenKai', 'LXGW WenKai Screen', '霞鹜文楷', 'serif'],
+                        'pingfang': ['PingFang SC', 'PingFang TC', 'PingFang HK', 'Hiragino Sans GB', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                }
             }
         }
     </script>
@@ -32,64 +44,87 @@
 <body class="bg-gray-50 dark:bg-gray-900 min-h-full flex flex-col">
 
     <!-- Header -->
-    <header>
-        <nav class="bg-white custom-dark-hf w-full h-24 shadow-sm">
-            <div class="max-w-[1200px] mx-auto px-4">
-                <div class="flex justify-between items-center h-24 relative">
-                    <!-- 左侧 Logo 和标题 -->
-                    <div class="flex items-center space-x-3">
-                        <a href="https://github.akams.cn" class="flex items-center space-x-3" rel="noopener noreferrer">
-                        <img src="https://cdn.akams.cn/images/OcticonOctoface16.svg" alt="AKAMS.CN" class="h-10 w-10 object-contain dark:invert">
-                        <span class="text-xl font-semibold dark:text-white">Github Proxy</span></a>
-                    </div>
+    <header class="bg-white custom-dark-bg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- 左侧 Logo 和标题 -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://github.akams.cn" class="flex items-center space-x-3" rel="noopener noreferrer">
+                        <img src="https://cdn.akams.cn/images/OcticonOctoface16.svg" alt="AKAMS.CN"
+                            class="h-8 w-8 object-contain dark:invert">
+                        <span class="text-xl font-semibold text-gray-900 dark:text-white">Github Proxy</span>
+                    </a>
+                </div>
 
-                    <!-- 右侧按钮组 -->
-                    <div class="flex items-center">
-                        <!-- 桌面端功能按钮 -->
-                        <button id="check-mirrors-btn" 
-                            class="hidden sm:block px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm mr-3">
+                <!-- 中间菜单项 -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button id="check-mirrors-btn" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">
+                        节点检测
+                    </button>
+
+                    <a href="https://uptime.akams.cn/status/philanthropy"
+                        class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">
+                        服务状态
+                    </a>
+
+                    <a href="https://github.akams.cn/https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts"
+                        class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">
+                        Hosts
+                    </a>
+                </div>
+
+                <!-- 右侧按钮 -->
+                <div class="flex items-center space-x-4">
+                    <!-- 主题切换按钮 -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <svg class="w-5 h-5 hidden dark:block text-gray-300" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden text-gray-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    <!-- 赞助按钮 -->
+                    <a href="https://akams.cn/donate.html" target="_blank" class="hidden sm:block px-4 py-2 bg-gray-900 hover:bg-blue-600 text-white dark:bg-gray-200 dark:text-black rounded-lg transition-colors text-sm font-medium">
+                        赞助
+                    </a>
+
+                    <!-- 移动端菜单按钮 -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-expanded="false" aria-label="打开移动端菜单" onclick="toggleMobileMenu()">
+                        <svg id="mobile-menu-icon" class="w-6 h-6 text-gray-600 dark:text-gray-300 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 dark:border-gray-700">
+                <div class="py-2">
+                    <!-- 首页菜单项 -->
+                    <div class="relative">
+                        <button id="mobile-check-mirrors-btn"
+                            class="block px-4 py-3 text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                             节点检测
                         </button>
-                        <a href="https://uptime.akams.cn/status/philanthropy" target="_blank" 
-                            class="hidden sm:block px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors text-sm mr-3">
-                            服务状态
-                        </a>
-                        <a href="https://github.akams.cn/https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts" target="_blank" 
-                            class="hidden sm:block px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors text-sm mr-3">
-                            Hosts
-                        </a>
-
-                        <!-- 主题切换按钮 (桌面端和移动端共用) -->
-                        <button onclick="toggleTheme()" 
-                            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                            <svg class="w-5 h-5 hidden dark:block text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                            <svg class="w-5 h-5 block dark:hidden text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                            </svg>
-                        </button>
-
-                        <!-- 移动端菜单按钮 -->
-                        <button id="mobile-menu-button" 
-                            class="sm:hidden ml-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                            <i class="fas fa-bars text-gray-600 dark:text-gray-300"></i>
-                        </button>
+                        <div class="absolute bottom-0 left-4 right-4 h-px bg-gray-200 dark:bg-gray-600"></div>
                     </div>
 
-                    <!-- 移动端菜单 -->
-                    <div id="mobile-menu" 
-                        class="hidden sm:hidden absolute right-4 top-full mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
-                        <button id="mobile-check-mirrors-btn" 
-                            class="w-full px-3 py-2 text-center hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors text-sm">
-                            节点检测
-                        </button>
-                        <a href="https://uptime.akams.cn/status/philanthropy" target="_blank" 
-                            class="block w-full px-3 py-2 text-center hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors text-sm">
+                    <div class="relative">
+                        <a href="https://uptime.akams.cn/status/philanthropy"
+                            class="block px-4 py-3 text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                             服务状态
                         </a>
-                        <a href="https://github.akams.cn/https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts" target="_blank" 
-                            class="block w-full px-3 py-2 text-center hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors text-sm">
+                        <div class="absolute bottom-0 left-4 right-4 h-px bg-gray-200 dark:bg-gray-600"></div>
+                    </div>
+
+                    <div class="relative">
+                        <a href="https://github.akams.cn/https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts"
+                            class="block px-4 py-3 text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                             Hosts
                         </a>
                     </div>
@@ -99,8 +134,8 @@
     </header>
 
     <!-- Main -->
-    <main class="flex-grow custom-dark-bg">
-        <div class="max-w-[1200px] mx-auto px-4">
+    <main class="flex-grow bg-white custom-dark-bg">
+        <div class="max-w-5xl mx-auto px-4">
             <!-- 标题 -->
             <div class="text-center mt-16">
                 <h1 class="text-5xl font-bold mb-3 dark:text-white">
@@ -276,7 +311,7 @@
         </div>
 
         <!-- Waline -->
-        <div id="waline" class="max-w-[1000px] mx-auto px-4 dark:text-white min-h-[100px]">
+        <div id="waline" class="max-w-5xl mx-auto px-4 dark:text-white min-h-[100px]">
             <!-- Waline 加载时的指示器 -->
             <div class="flex items-center justify-center py-8 text-gray-500 dark:text-gray-400">
                 <i class="fas fa-spinner fa-spin mr-3 text-2xl"></i>
@@ -286,109 +321,103 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white custom-dark-hf w-full mt-auto shadow-sm">
-        <div class="container flex flex-col max-w-[1200px] items-center py-8 mx-auto gap-4 lg:gap-8 items-start sm:flex-row sm:items-start">
-            <div class="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
-                <div>
-                    <div class="flex items-center justify-center gap-2 lg:justify-start">
-                        <!-- <img src="https://cdn.akams.cn/images/OcticonOctoface16.svg" alt="CopyWeb" class="h-11 dark:invert"> -->
-                        <a href="https://akams.cn" class="text-xl font-black leading-none text-gray-900 select-none logo dark:text-white">AKAMS.CN</a>
+    <footer class="bg-white custom-dark-bg border-t border-gray-200 dark:border-gray-700 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-10 gap-8 sm:grid-cols-12">
+                <!-- 品牌信息和社交链接 -->
+                <div class="space-y-6 sm:col-span-12 lg:col-span-6">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <a href="https://akams.cn" class="text-xl font-black leading-none text-gray-900 select-none logo dark:text-white">AKAMS.CN</a>
+                        </div>
+                        <p class="mt-4 text-base leading-5 text-gray-600 font-pingfang">It's a long and beautiful life.</p>
                     </div>
-                    <p class="max-w-xs mt-4 text-base leading-5 text-gray-500">It's a long and beautiful life.</p>
+                    <ul class="flex gap-6 list-none">
+                        <li>
+                            <a href="https://akams.cn/donate.html" title="Donate" rel="noopener" target="_blank" class="transition text-gray-400 hover:text-indigo-500">
+                                <span class="sr-only">Donate</span>
+                                <span class="w-6 h-6 icon-[mdi--shang]"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a x-init="$el.href = 'mailto:' + atob('b29wc3VuaXhAcXEuY29t')" title="Email" rel="noopener" class="transition text-gray-400 hover:text-indigo-500">
+                                <span class="sr-only">Email</span>
+                                <span class="w-6 h-6 icon-[mdi--email]"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/oopsunix" target="_blank" title="GitHub" rel="noopener" class="transition text-gray-400 hover:text-indigo-500">
+                                <span class="sr-only">GitHub</span>
+                                <span class="w-6 h-6 icon-[mdi--github]"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank" title="Telegram" rel="noopener" class="transition text-gray-400 hover:text-indigo-500">
+                                <span class="sr-only">Telegram</span>
+                                <span class="w-6 h-6 icon-[mdi--telegram]"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank" title="Twitter" rel="noopener" class="transition text-gray-400 hover:text-indigo-500">
+                                <span class="sr-only">Twitter</span>
+                                <span class="w-6 h-6 icon-[mdi--twitter]"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- 赞助说明 -->
+                    <div class="mt-6">
+                        <!-- <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">赞助支持</h3> -->
+                        <!-- <div class="w-full max-w-[280px]">
+                            <iframe frameborder=0 src="https://support.nodeget.com/page/promotion?id=1" style="border-radius:8px; width: 100%; height: 270px; transform: scale(0.8); transform-origin: top left;"></iframe>
+                        </div> -->
+                    </div>
                 </div>
-                <ul class="flex gap-6 list-none">
+
+                <!-- 快速链接 -->
+                <div class="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div class="text-lg font-bold text-gray-900 dark:text-white">快速链接</div>
+                    <div class="space-y-1">
+                        <a href="https://akams.cn/github/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600" title="GitHub Proxy">GitHub Proxy</a>
+                        <a href="https://akams.cn/docker/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600" title="Docker Proxy">Docker Proxy</a>
+                        <a href="https://akams.cn/kms/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600" title="KMS Activator">KMS Activator</a>
+                        <a href="https://api.akams.cn/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600" title="WebAPI">WebAPI</a>
+                    </div>
+                </div>
+
+                <!-- 用户协议 -->
+                <div class="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div class="text-lg font-bold text-gray-900 dark:text-white">用户协议</div>
+                    <div class="space-y-1">
+                        <a href="/terms-of-service/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600">服务条款</a>
+                        <a href="/privacy-policy/" class="block text-sm leading-6 text-gray-600 hover:text-blue-600">隐私政策</a>
+                    </div>
+                </div>
+
+                <!-- 联系我们 -->
+                <div class="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div class="text-lg font-bold text-gray-900 dark:text-white">联系我们</div>
+                    <div class="space-y-1">
+                        <a x-init="$el.href = 'mailto:' + atob('b29wc3VuaXhAcXEuY29t')" title="Email" class="block text-sm leading-6 text-gray-600 hover:text-blue-600">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- 版权信息垂直居中显示 -->
+            <!-- <div class="flex flex-col gap-1 px-6 py-12 mx-auto text-xs text-center text-zinc-700 max-w-7xl lg:px-8 border-t dark:text-white">
+                <p class="text-sm text-gray-600 text-medium text-black dark:text-white">© <span id="current-year"></span> • oopsunix. All rights reserved.</p>
+            </div> -->
+
+            <!-- 版权信息水平分布显示 -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-center flex flex-col py-12 justify-between gap-4 border-t border-t-1 border-dark-300 border-b-0 border-l-0 border-r-0 pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left text-gray-600 font-pingfang">
+                <p>Copyright © 2023-<span id="current-year"></span> OopsUnix. All rights reserved.
+                    <!-- <a href="/" target="_blank" class="px-2 text-primary">build with </a> -->
+                </p>
+                <ul class="flex justify-center gap-4 lg:justify-start">
                     <li>
-                        <a href="#" title="Donate" rel="noopener" target="_blank" class="transition text-gray-400 hover:hover:text-indigo-500">
-                            <span class="sr-only">Donate</span>
-                            <span class="w-6 h-6 icon-[mdi--shang]"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a x-init="$el.href = 'mailto:' + atob('b29wc3VuaXhAcXEuY29t')" title="Email" rel="noopener" class="transition text-gray-400 hover:hover:text-indigo-500">
-                            <span class="sr-only">Email</span>
-                            <span class="w-6 h-6 icon-[mdi--email]"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/oopsunix" target="_blank" title="GitHub" rel="noopener" class="transition text-gray-400 hover:hover:text-indigo-500">
-                            <span class="sr-only">GitHub</span>
-                            <span class="w-6 h-6 icon-[mdi--github]"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank" title="Telegram" rel="noopener" class="transition text-gray-400 hover:hover:text-indigo-500">
-                            <span class="sr-only">Telegram</span>
-                            <span class="w-6 h-6 icon-[mdi--telegram]"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank" title="Twitter" rel="noopener" class="transition text-gray-400 hover:hover:text-indigo-500">
-                            <span class="sr-only">Twitter</span>
-                            <span class="w-6 h-6 icon-[mdi--twitter]"></span>
-                        </a>
+                        <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="nofollow" class="slide hover:text-blue-600" hotrep="hp.footer.bottom.miitbeian" style="margin-right: 5px;">萌ICP备xxxx号</a>
                     </li>
                 </ul>
             </div>
-
-            <!-- <div class="flex-1 sm:px-2 md:px-6 lg:px-10 xl:px-12 text-center sm:text-left min-w-[200px]">
-                <div class="lg:text-lg mb-2 font-bold text-gray-900 dark:text-white">Terms</div>
-                <div class="grid grid-cols-1 gap-1">
-                    <a href="/terms-of-service/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200 whitespace-nowrap" >Terms of Service</a>
-                    <a href="/privacy-policy/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200 whitespace-nowrap" >Privacy Policy</a>
-                </div>
-            </div> -->
-
-            <div class="flex-1 sm:px-2 md:px-6 lg:px-10 xl:px-12 text-center sm:text-left">
-                <div class="lg:text-lg mb-2 font-bold text-gray-900 dark:text-white">Resources</div>
-                <div class="grid grid-cols-1 gap-1">
-                    <a href="https://gh.llkk.cc/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200" title="Docker Proxy"> GitHub Proxy</a>
-                    <a href="https://akams.cn/docker/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200" title="Docker Proxy"> Docker Proxy</a>
-                    <a href="https://akams.cn/kms/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200" title="KMS Activator"> KMS Activator </a>
-                    <a href="https://api.akams.cn/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200" title="WebAPI"> WebAPI </a>
-                </div>
-            </div>
-
-            <div class="flex-1 sm:px-2 md:px-6 lg:px-10 xl:px-12 text-center sm:text-left" x-data="{ open: false }">
-                <div class="lg:text-lg mb-2 font-bold text-gray-900 dark:text-white cursor-pointer flex items-center justify-center sm:justify-start" @click="open = !open">
-                    Friends
-                    <i class="ml-2 fas" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
-                </div>
-                <div class="grid gap-1 overflow-hidden transition-all duration-300 ease-in-out"
-                     :style="open ? 'max-height: 500px;' : 'max-height: 0;'">
-                    <a href="https://github.tbedu.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">github.tbedu.top</a>
-                    <a href="https://ghfile.geekertao.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">ghfile.geekertao.top</a>
-                    <a href="https://github.proxy.class3.fun/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">github.proxy.class3.fun</a>
-                    <a href="https://github-proxy.lixxing.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200 whitespace-nowrap">github-proxy.lixxing.top</a>
-                    <a href="https://ghf.xn--tj4av2y.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">ghf.无名氏.top</a>
-                    <a href="https://ghm.078465.xyz/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">ghm.078465.xyz</a>
-                    <a href="https://gh-proxy.net/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">gh-proxy.net</a>
-                    <a href="https://jiashu.1win.eu.org/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">jiashu.1win.eu.org</a>
-                    <a href="https://github.acmsz.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">github.acmsz.top</a>
-                    <a href="https://git.yylx.win/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">git.yylx.win</a>
-                    <a href="https://tvv.tw/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">tvv.tw</a>
-                    <a href="https://github.kongkuang.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">github.kongkuang.top</a>
-                    <a href="https://gp-us.fyan.top/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">gp-us.fyan.top</a>
-                    <a href="https://gitproxy.127731.xyz/" class="text-xs lg:text-sm leading-6 text-gray-500 hover:text-neutral-200">gitproxy.127731.xyz</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="flex flex-col gap-1 px-6 py-12 mx-auto text-xs text-center text-zinc-700 max-w-7xl lg:px-8 border-t dark:text-white">
-            <p class="text-sm text-gray-500 text-medium text-black dark:text-white">© <span id="current-year"></span> • oopsunix. All rights reserved.</p>
-        </div> -->
-        <div class="max-w-[1200px] mx-auto items-center flex flex-col px-6 py-12 justify-between gap-4 border-t border-t-2 border-dark-300 border-b-0 border-l-0 border-r-0 pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left dark:text-white font-mono">
-            <p>© <span id="current-year"></span> OopsUnix. All rights reserved.
-                <!-- <a href="/" target="_blank" class="px-2 text-primary">build with </a> -->
-            </p>
-            <ul class="flex justify-center gap-4 lg:justify-start">
-                <li class="hover:text-primary">
-                    <a href="/privacy-policy/">Privacy Policy</a>
-                </li>
-                <li class="hover:text-primary">
-                    <a href="/terms-of-service/">Terms of Service</a>
-                </li>
-            </ul>
-        </div>
     </footer>
 
     <!-- Scripts -->
@@ -408,6 +437,7 @@
         //   }
     </script>
     <script src="https://cdn.akams.cn/static/js/theme.js"></script>
+    <script src="static/js/mobile.js"></script>
     <script src="static/js/mirrors.js"></script>
     <script src="https://cdn.akams.cn/github/checker.js"></script>
     <script src="static/js/proxy_checker.js"></script>

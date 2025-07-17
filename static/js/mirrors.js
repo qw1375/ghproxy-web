@@ -32,4 +32,5 @@ window.mirrors = [
     "https://gh-proxy.com",
     "https://gh.b52m.cn",
     "https://gh.bugdey.us.kg",
+"https://gh.wsmdn.dpdns.org",
 ];

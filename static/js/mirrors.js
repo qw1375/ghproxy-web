@@ -1,5 +1,5 @@
 // mirrors.js
-window.mirrors = [
+window。mirrors = [
     "https://gh.llkk.cc",
     "https://ghproxy.net",
     "https://gitproxy.click",
@@ -32,9 +32,9 @@ window.mirrors = [
     "https://gh-proxy.com",
     "https://gh.b52m.cn",
     "https://gh.bugdey.us.kg",
-"https://gh.wsmdn.dpdns.org",
-"https://github.lxxz.xyz",
-"http://gh.927223.xyz",
-"https://ghp.qi9420.xyz",
-"https://gh.felicity.ac.cn",
+    "https://gh.wsmdn.dpdns.org"，
+    "https://github.lxxz.xyz"，
+    "http://gh.927223.xyz",
+    "https://ghp.qi9420.xyz",
+    "https://gh.felicity.ac.cn",
 ];

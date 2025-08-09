@@ -1,5 +1,5 @@
 // mirrors.js
-window。mirrors = [
+window.mirrors = [
     "https://gh.llkk.cc",
     "https://ghproxy.net",
     "https://gitproxy.click",

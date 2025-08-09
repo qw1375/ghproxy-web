@@ -36,4 +36,5 @@ window.mirrors = [
 "https://github.lxxz.xyz",
 "http://gh.927223.xyz",
 "https://ghp.qi9420.xyz",
+"https://gh.felicity.ac.cn",
 ];

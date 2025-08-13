@@ -182,7 +182,7 @@ const tabs = {
   "wget-curl": {
     title: "Wget && Curl",
     content:
-      "wget https://github.akams.cn/https://github.com/user/repo/archive/master.zip\ncurl -O https://proxy.akams.cn/https://github.com/user/repo/archive/master.zip",
+      "wget https://github.akams.cn/https://github.com/user/repo/archive/master.zip\ncurl -L -O https://proxy.akams.cn/https://github.com/user/repo/archive/master.zip",
     guide: "使用 Wget 或 Curl 下载：\n1. 选择需要的下载命令\n2. 在终端中执行命令\n3. 文件将下载到当前目录",
   },
   "direct-download": {
@@ -290,7 +290,7 @@ function updateProxyUrl() {
   const proxyUrl = generateProxyUrl(url);
   // 更新所有选项卡的内容
   tabs["git-clone"].content = `git clone ${proxyUrl}`;
-  tabs["wget-curl"].content = `wget ${proxyUrl}\ncurl -O ${proxyUrl}`;
+  tabs["wget-curl"].content = `wget ${proxyUrl}\ncurl -L -O ${proxyUrl}`;
   tabs["direct-download"].content = proxyUrl;
   // 更新当前选项卡显示
   renderTabContent(currentTab);

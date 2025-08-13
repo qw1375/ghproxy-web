@@ -4,14 +4,13 @@
  *
  */
 document.addEventListener('DOMContentLoaded', async function() {
-    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    const { init } = await import('https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/waline/3.6.0/waline.js');
 
     const path = `${window.location.href}`;
 
     const waline = init({
         el: "#waline",
-        // serverURL: "https://waline.akams.cn",
-        serverURL: "https://waline-akams.tbedu.top",
+        serverURL: "https://waline.akams.cn",
         path: "/github", // 当前文章页路径，用于区分不同的文章页
         dark: 'html[data-theme="dark"]',
         // meta: ["nick"], // 评论者相关属性。
@@ -41,13 +40,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             comment: "留言",
         },
         emoji: [
-            'https://fastly.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs',
-            "https://unpkg.com/@waline/emojis@1.2.0/bmoji",
-            "https://unpkg.com/@waline/emojis@1.2.0/bilibili",
-            "https://unpkg.com/@waline/emojis@1.2.0/weibo",
-            'https://unpkg.com/@waline/emojis@1.2.0/qq',
-            'https://unpkg.com/@waline/emojis@1.2.0/tieba',
-            'https://unpkg.com/@waline/emojis@1.2.0/alus'
+            'https://jsd.akams.cn/gh/norevi/waline-blobcatemojis@1.0/blobs',
+            "https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/bmoji",
+            "https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/bilibili",
+            "https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/weibo",
+            'https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/qq',
+            'https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/tieba',
+            'https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/alus',
+            'https://jsd.akams.cn/gh/walinejs/emojis@1.4.0/hoyoverse-hi3'
         ],
         imageUploader: false, // 自定义图片上传方法。默认行为是将图片 Base 64 编码嵌入，你可以设置为 false 以禁用图片上传功能。
         search: false, // 禁用gif表情包搜索

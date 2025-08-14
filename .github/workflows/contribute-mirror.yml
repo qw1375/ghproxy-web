@@ -54,7 +54,7 @@ jobs:
 
           # 获取最后一个镜像行的缩进
           INDENT=$(grep -B1 '"[^"]*"' static/js/mirrors.js | head -1 | sed 's/[^ ].*//')
-          INDENT=${INDENT:-"  "} # 默认两个空格
+          INDENT=${INDENT:-"    "} # 默认两个空格
 
           # 使用 sed 精准匹配包含 '];' 的那一行，并在其前面插入新 URL
           sed "/^[[:space:]]*];/i\

@@ -5,7 +5,6 @@ window.mirrors = [
     "https://gitproxy.click",
     "https://github.tbedu.top",
     "https://ghfile.geekertao.top",
-    "https://github.proxy.class3.fun",
     "https://ghf.无名氏.top",
     "https://ghm.078465.xyz",
     "https://gh-proxy.net",
@@ -37,4 +36,6 @@ window.mirrors = [
     "http://gh.927223.xyz",
     "https://ghp.qi9420.xyz",
     "https://gh.felicity.ac.cn",
+    "https://github-proxy.teach-english.tech",
+    "https://github-proxy.memory-echoes.cn",
 ];

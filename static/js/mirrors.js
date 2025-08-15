@@ -38,4 +38,5 @@ window.mirrors = [
     "https://gh.felicity.ac.cn",
     "https://github-proxy.teach-english.tech",
     "https://github-proxy.memory-echoes.cn",
+    "https://gh.ptoe.cc",
 ];

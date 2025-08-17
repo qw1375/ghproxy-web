@@ -8,6 +8,7 @@ window.mirrors = [
     "https://ghf.无名氏.top",
     "https://ghm.078465.xyz",
     "https://gh-proxy.net",
+    "https://github.wown.ip-ddns.com",
     "https://jiashu.1win.eu.org",
     "https://j.1win.ggff.net",
     "https://j.1lin.dpdns.org",

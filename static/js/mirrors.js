@@ -39,4 +39,13 @@ window.mirrors = [
     "https://github-proxy.teach-english.tech",
     "https://github-proxy.memory-echoes.cn",
     "https://gh.ptoe.cc",
+    "https://gh.inkchills.cn",
+    "https://ghproxy.cfd",
+    "https://demo.52013120.xyz",
+    "https://cdn.akaere.online",
+    "https://cdn.gh-proxy.com",
+    "https://github.starrlzy.cn",
+    "https://gh.noki.eu.org",
+    "https://gh-proxy.top",
+    "https://githubcdn.rensumo.top",
 ];

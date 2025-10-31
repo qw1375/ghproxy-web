@@ -48,5 +48,6 @@ window.mirrors = [
     "https://gh.noki.eu.org",
     "https://gh-proxy.top",
     "https://githubcdn.rensumo.top",
-"https://gh.fhjhy.top",
+    "https://gh.fhjhy.top",
+    "https://github.fhjhy.top",
 ];

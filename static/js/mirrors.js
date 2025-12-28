@@ -50,4 +50,5 @@ window.mirrors = [
     "https://githubcdn.rensumo.top",
 "https://gh.fhjhy.top",
 "https://proxy.568131.xyz",
+"https://down.mxw.xx.kg",
 ];

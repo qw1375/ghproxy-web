@@ -51,4 +51,5 @@ window.mirrors = [
 "https://gh.fhjhy.top",
 "https://proxy.568131.xyz",
 "https://down.mxw.xx.kg",
+"https://down.mxw.qzz.io",
 ];

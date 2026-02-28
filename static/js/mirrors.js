@@ -14,7 +14,7 @@ window.mirrors = [
     "https://gh-deno.mocn.top",
     "https://git.yylx.win",
     "https://tvv.tw",
-    "https://gh.leidianyun.xyz",
+    "https://gh.ldjhy.top",
     "https://gp-us.fyan.top",
     "https://gitproxy.127731.xyz",
     "https://github.cmsz.dpdns.org",

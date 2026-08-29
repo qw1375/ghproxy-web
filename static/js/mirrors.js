@@ -54,4 +54,6 @@ window.mirrors = [
 "https://down.mxw.xx.kg",
 "https://down.mxw.qzz.io",
 "https://github.mxw.qzz.io",
+"https://gh.acmsz.top",
+"https://gh.jjj.gv.uy",
 ];
